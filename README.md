@@ -2,8 +2,8 @@
 
 This project is for managing refugee data using SQL.
 
-Tablas modificables
-    - Hogar
+Tablas modificables:
+    \n- Hogar
     - Individuo
     - Alojamiento
     - HistorialServicio
