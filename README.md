@@ -13,3 +13,5 @@ Tablas no modificables:
     <br>- Refugio
     <br>- Servicio
     <br>- Personal
+
+Cada tabla modificable tendra un script CRUD para poder agregar, leer y eliminar objetos de la tabla. No se permitiran modificaciones
