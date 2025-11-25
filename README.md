@@ -4,12 +4,12 @@ This project is for managing refugee data using SQL.
 
 Tablas modificables:
     <br>- Hogar
-    - Individuo
-    - Alojamiento
-    - HistorialServicio
-    - Vacunas
+    <br>- Individuo
+    <br>- Alojamiento
+    <br>- HistorialServicio
+    <br>- Vacunas
 
 Tablas no modificables:
-    - Refugio
-    - Servicio
-    - Personal
+    <br>- Refugio
+    <br>- Servicio
+    <br>- Personal
