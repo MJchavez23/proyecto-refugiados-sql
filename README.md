@@ -3,7 +3,7 @@
 This project is for managing refugee data using SQL.
 
 Tablas modificables:
-    \n- Hogar
+    <br>- Hogar
     - Individuo
     - Alojamiento
     - HistorialServicio
