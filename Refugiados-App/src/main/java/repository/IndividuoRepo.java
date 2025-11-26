@@ -2,7 +2,9 @@ package repository;
 
 
 import lombok.AllArgsConstructor;
+import model.Hogar;
 import model.Individuo;
+import model.Refugio;
 import model.enums.EstadoEmpleo;
 import model.enums.EstatusLegal;
 import model.enums.NivelEducacion;
@@ -17,7 +19,7 @@ public class IndividuoRepo {
 
     private final Connection connection;
 
-    public Optional<Individuo> guardarIndividuo(Individuo individuo) {
+    public Individuo guardarIndividuo(Individuo individuo) {
         String query = "INSERT INTO individuo" +
                 "(id_hogar, nombre, apellido, genero, fecha_nacimiento, pais_origen, idioma_principal, nivel_educativo, telefono, estatus_legal, tipo_documento, numero_documento, discapacidad, enfermedad_cronica, embarazada, estado_empleo, representante_hogar)" +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; //Preparamos el query
@@ -34,21 +36,31 @@ public class IndividuoRepo {
             }
 
         }catch (SQLException ex){
-
             ex.printStackTrace();
-
-            return Optional.empty();
         }
-        return Optional.of(individuo);
+        return individuo;
     }
 
-    public Optional<Individuo> buscarIndividuoPorTipoDocumentYNumero(TipoDocumento tipoDocumento, String numeroDocumento ) {
-        String query = "SELECT * FROM individuo WHERE tipo_documento = ? AND numero_documento = ?";
+    public Optional<Individuo> buscarIndividuoPorTipoDocumentYNumero(String tipoDocumento, String numeroDocumento ) {
+        String query = "SELECT " +
+        "i.id AS ind_id, i.nombre AS ind_nombre, i.apellido, i.genero, " +
+        "i.fecha_nacimiento, i.pais_origen, i.idioma_principal, i.nivel_educacion, " +
+        "i.telefono, i.estatus_legal, i.tipo_documento, i.numero_documento, " +
+        "i.discapacidad, i.enfermedad_cronica, i.embarazada, i.estado_empleo, i.representante_hogar, " +
+
+        "h.id_hogar AS hog_id, h.fecha_llegada_refugio, " +
+
+        "r.id_refugio AS ref_id, r.nombre AS ref_nombre, r.ciudad, r.pais, r.referencia " +
+
+        "FROM individuo i " +
+        "JOIN hogar h ON i.id_hogar = h.id_hogar " +
+        "JOIN refugio r ON h.id_refugio = r.id_refugio " +
+        "WHERE tipo_documento = ? AND numero_documento = ?";
 
         try(PreparedStatement statement = connection.prepareStatement(query)){
 
             //Prepara el statement
-            statement.setString(1,tipoDocumento.name());
+            statement.setString(1,tipoDocumento);
             statement.setString(2,numeroDocumento);
 
             //Ejecuta el query y creamos el Individuo en base al ResultSet
@@ -67,7 +79,20 @@ public class IndividuoRepo {
     }
 
     public Optional<Individuo> buscarIndividuoPorNumeroDocumento(String numeroDocumento) {
-        String query = "SELECT * FROM individuo WHERE numero_documento = ?";
+        String query = "SELECT " +
+        "i.id AS ind_id, i.nombre AS ind_nombre, i.apellido, i.genero, " +
+        "i.fecha_nacimiento, i.pais_origen, i.idioma_principal, i.nivel_educacion, " +
+        "i.telefono, i.estatus_legal, i.tipo_documento, i.numero_documento, " +
+        "i.discapacidad, i.enfermedad_cronica, i.embarazada, i.estado_empleo, i.representante_hogar, " +
+
+        "h.id_hogar AS hog_id, h.fecha_llegada_refugio, " +
+
+        "r.id_refugio AS ref_id, r.nombre AS ref_nombre, r.ciudad, r.pais, r.referencia " +
+
+        "FROM individuo i " +
+        "JOIN hogar h ON i.id_hogar = h.id_hogar " +
+        "JOIN refugio r ON h.id_refugio = r.id_refugio " +
+        "WHERE i.numero_documento = ?";
 
         try(PreparedStatement statement = connection.prepareStatement(query)){
 
@@ -87,9 +112,25 @@ public class IndividuoRepo {
     }
 
     private Individuo crearIndividuo(ResultSet rs) throws SQLException {
+        Refugio refugio = Refugio.builder()
+                .id(rs.getInt("ref_id"))
+                .nombre(rs.getString("ref_nombre"))
+                .ciudad(rs.getString("ciudad"))
+                .pais(rs.getString("pais"))
+                .referenciaUbicacion(rs.getString("referencia_ubicacion"))
+
+                .build();
+
+        Hogar hogar = Hogar.builder()
+                .id(rs.getInt("id_hogar"))
+                .refugio(refugio)
+                .fechaLlegada(rs.getObject("fecha_llegada_refugio", LocalDate.class))
+                .build();
+
         return Individuo.builder()
-                .id(rs.getInt("id_individuo"))
-                .nombre(rs.getString("nombre"))
+                .id(rs.getInt("ind_id"))
+                .hogar(hogar)
+                .nombre(rs.getString("ind_nombre"))
                 .apellido(rs.getString("apellido"))
                 .genero(rs.getString("genero"))
                 .fechaNacimiento(rs.getObject("fecha_nacimiento", LocalDate.class)) //Convierte el tipo SQL.Date a util.LocalDate
