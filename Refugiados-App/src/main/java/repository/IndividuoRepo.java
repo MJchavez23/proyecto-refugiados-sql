@@ -42,7 +42,7 @@ public class IndividuoRepo {
         return Optional.of(individuo);
     }
 
-    public Optional<Individuo> buscarIndividuo(TipoDocumento tipoDocumento, String numeroDocumento ) {
+    public Optional<Individuo> buscarIndividuoPorTipoDocumentYNumero(TipoDocumento tipoDocumento, String numeroDocumento ) {
         String query = "SELECT * FROM individuo WHERE tipo_documento = ? AND numero_documento = ?";
 
         try(PreparedStatement statement = connection.prepareStatement(query)){
