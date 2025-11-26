@@ -66,6 +66,26 @@ public class IndividuoRepo {
         return Optional.empty();
     }
 
+    public Optional<Individuo> buscarIndividuoPorNumeroDocumento(String numeroDocumento) {
+        String query = "SELECT * FROM individuo WHERE numero_documento = ?";
+
+        try(PreparedStatement statement = connection.prepareStatement(query)){
+
+            statement.setString(1,numeroDocumento);
+
+            try(ResultSet rs = statement.executeQuery()){
+                if(rs.next()){
+                    Individuo individuo = crearIndividuo(rs);
+                    return Optional.of(individuo);
+                }
+            }
+
+        }catch (SQLException ex){
+            ex.printStackTrace();
+        }
+        return Optional.empty();
+    }
+
     private Individuo crearIndividuo(ResultSet rs) throws SQLException {
         return Individuo.builder()
                 .id(rs.getInt("id_individuo"))
