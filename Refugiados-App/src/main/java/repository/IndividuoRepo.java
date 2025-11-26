@@ -42,7 +42,7 @@ public class IndividuoRepo {
         return Optional.of(individuo);
     }
 
-    public Optional<Individuo> buscarIndividuo(TipoDocumento tipoDocumento, String numeroDocumento ) {
+    public Optional<Individuo> buscarIndividuoPorTipoDocumentYNumero(TipoDocumento tipoDocumento, String numeroDocumento ) {
         String query = "SELECT * FROM individuo WHERE tipo_documento = ? AND numero_documento = ?";
 
         try(PreparedStatement statement = connection.prepareStatement(query)){
@@ -63,6 +63,26 @@ public class IndividuoRepo {
             ex.printStackTrace();
         }
 
+        return Optional.empty();
+    }
+
+    public Optional<Individuo> buscarIndividuoPorNumeroDocumento(String numeroDocumento) {
+        String query = "SELECT * FROM individuo WHERE numero_documento = ?";
+
+        try(PreparedStatement statement = connection.prepareStatement(query)){
+
+            statement.setString(1,numeroDocumento);
+
+            try(ResultSet rs = statement.executeQuery()){
+                if(rs.next()){
+                    Individuo individuo = crearIndividuo(rs);
+                    return Optional.of(individuo);
+                }
+            }
+
+        }catch (SQLException ex){
+            ex.printStackTrace();
+        }
         return Optional.empty();
     }
 
