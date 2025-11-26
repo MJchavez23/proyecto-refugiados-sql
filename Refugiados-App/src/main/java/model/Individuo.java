@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import model.enums.EstadoEmpleo;
+import model.enums.EstatusLegal;
 import model.enums.NivelEducacion;
 import model.enums.TipoDocumento;
 
@@ -25,7 +26,7 @@ public class Individuo {
     private String idiomaPrincipal;
     private NivelEducacion nivelEducacion;
     private String telefono;
-    private String estatusLegal;
+    private EstatusLegal estatusLegal;
     private TipoDocumento tipoDocumento;
     private String numeroDocumento;
     private String discapacidad;
