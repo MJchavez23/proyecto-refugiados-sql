@@ -91,9 +91,10 @@ FOREIGN KEY(idindividuo) REFERENCES Individuo(idindividuo)
 );
 
 create table Bitacora(
-  idbitacora integer primary key,
+  idbitacora SERIAL primary key,
   accion varchar(50),
-  tabla varchar(50),
+  tabla varchar(50),	
   fecha timestamp,
   usuario varchar(50)
 );
+
