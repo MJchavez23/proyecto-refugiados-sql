@@ -64,6 +64,7 @@ END;
 $$ LANGUAGE plpgsql;
 
 CREATE TRIGGER trigger_historial
-AFTER INSERT OR UPDATE OR DELETE ON Historial
+AFTER INSERT OR UPDATE OR DELETE ON HistorialServicio
 FOR EACH ROW
 EXECUTE FUNCTION actualizarBitacora_historial();
+
