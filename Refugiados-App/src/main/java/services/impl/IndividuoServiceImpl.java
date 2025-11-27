@@ -24,12 +24,18 @@ public class IndividuoServiceImpl implements IndividuoService {
 
     @Override
     public Optional<Individuo> buscarIndividuoPorTipoDocumentoYNumero(TipoDocumento tipoDocumento, String numeroDocumento) throws SQLException {
-        return Optional.empty();
+        if(tipoDocumento == null && numeroDocumento.isBlank()){
+            return Optional.empty();
+        }
+        return individuoRepo.buscarIndividuoPorTipoDocumentYNumero(tipoDocumento.name(), numeroDocumento);
     }
 
     @Override
     public Optional<Individuo> buscarIndividuoPorNumeroDocumento(String numeroDocumento) throws SQLException {
-        return Optional.empty();
+        if(numeroDocumento.isBlank()){
+            return Optional.empty();
+        }
+        return individuoRepo.buscarIndividuoPorNumeroDocumento(numeroDocumento);
     }
 
     private boolean verificarNoVacios(Individuo individuo) {
