@@ -61,8 +61,9 @@ FOREIGN KEY(idrefugio) REFERENCES Refugio(idrefugio)
 );
 
 CREATE TABLE HistorialServicio (
-idservicio INTEGER NOT NULL, 
-idindividuo INTEGER NOT NULL, 
+idhistorial SERIAL PRIMARY KEY,
+idservicio INTEGER NOT NULL,
+idindividuo INTEGER NOT NULL,
 idpersonal INTEGER NOT NULL,
 fecha_servicio DATE NOT NULL, 
 resultado VARCHAR(120) NOT NULL,
@@ -87,4 +88,12 @@ nombre_vacuna VARCHAR(20) NOT NULL,
 enfermedad VARCHAR(20) NOT NULL,
 idindividuo INTEGER NOT NULL,
 FOREIGN KEY(idindividuo) REFERENCES Individuo(idindividuo)
+);
+
+create table Bitacora(
+  idbitacora integer primary key,
+  accion varchar(50),
+  tabla varchar(50),
+  fecha timestamp,
+  usuario varchar(50)
 );
