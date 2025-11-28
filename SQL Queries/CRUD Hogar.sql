@@ -40,7 +40,7 @@ END;
 $$ LANGUAGE plpgsql;
 
 --trigger hogar
-CREATE OR REPLACE TRIGGER actualizarBitacora_hogar()
+CREATE OR REPLACE FUNCTION actualizarBitacora_hogar()
 RETURNS TRIGGER AS
 $$
 DECLARE 
@@ -66,3 +66,4 @@ CREATE TRIGGER trigger_hogar
 AFTER INSERT OR UPDATE OR DELETE ON Hogar
 FOR EACH ROW
 EXECUTE FUNCTION actualizarBitacora_hogar();
+
