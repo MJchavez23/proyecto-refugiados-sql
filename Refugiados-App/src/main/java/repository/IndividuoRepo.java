@@ -48,7 +48,7 @@ public class IndividuoRepo {
         "i.telefono, i.estatus_legal, i.tipo_documento, i.numero_documento, " +
         "i.discapacidad, i.enfermedad_cronica, i.embarazada, i.estado_empleo, i.representante_hogar, " +
 
-        "h.id_hogar AS hog_id, h.fecha_llegada_refugio, " +
+        "h.id_hogar AS hog_id, h.fecha_llegada_refugio, h.nombre_hogar ," +
 
         "r.id_refugio AS ref_id, r.nombre AS ref_nombre, r.ciudad, r.pais, r.referencia " +
 
@@ -85,7 +85,7 @@ public class IndividuoRepo {
         "i.telefono, i.estatus_legal, i.tipo_documento, i.numero_documento, " +
         "i.discapacidad, i.enfermedad_cronica, i.embarazada, i.estado_empleo, i.representante_hogar, " +
 
-        "h.id_hogar AS hog_id, h.fecha_llegada_refugio, " +
+        "h.id_hogar AS hog_id, h.fecha_llegada_refugio, h.nombre_hogar, " +
 
         "r.id_refugio AS ref_id, r.nombre AS ref_nombre, r.ciudad, r.pais, r.referencia " +
 
