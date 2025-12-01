@@ -11,7 +11,7 @@ referencia VARCHAR(50) NOT NULL
 CREATE TABLE Hogar (
 id_hogar SERIAL PRIMARY KEY,
 id_refugio INTEGER NOT NULL,
-nombre_hogar VARCHAR(20) NOT NULL,
+nombre_hogar VARCHAR(100) NOT NULL,
 fecha_llegada_refugio DATE NOT NULL,
 FOREIGN KEY(id_refugio) REFERENCES Refugio(id_refugio)
 );
@@ -32,8 +32,8 @@ tipo_documento VARCHAR(20),
 numero_documento VARCHAR(20),
 discapacidad VARCHAR(20), 
 enfermedad_cronica VARCHAR(20),
-embarazada VARCHAR(10),
-estado_empleo VARCHAR(10),
+embarazada BOOL,
+estado_empleo VARCHAR(20),
 representante_hogar BOOL,
 FOREIGN KEY(id_hogar) REFERENCES Hogar(id_hogar)
 );
@@ -100,3 +100,4 @@ tabla VARCHAR(50),
 fecha TIMESTAMP,
 usuario VARCHAR(50)
 );
+
