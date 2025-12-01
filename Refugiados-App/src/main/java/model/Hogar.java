@@ -15,5 +15,6 @@ import java.time.LocalDate;
 public class Hogar {
     private int id;
     private Refugio refugio;
+    private String nombreHogar;
     private LocalDate fechaLlegada;
 }
