@@ -25,11 +25,11 @@ public class IndividuoRepo {
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; //Preparamos el query
 
         PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-        llenarStatement(statement, individuo); //Ingresa los valores del individuo dentro de statement
+        PreparedStatement statementListo = llenarStatement(statement, individuo); //Ingresa los valores del individuo dentro de statement
 
-        statement.executeUpdate(); //Ejecutamos el guardado
+        statementListo.executeUpdate(); //Ejecutamos el guardado
 
-        try(ResultSet idGenerado =  statement.getGeneratedKeys()) { //Obtenemos el id generado y lo seteamos en el modelo
+        try(ResultSet idGenerado =  statementListo.getGeneratedKeys()) { //Obtenemos el id generado y lo seteamos en el modelo
             if (idGenerado.next()) {
                 individuo.setId(idGenerado.getInt(1));
             }
@@ -60,11 +60,10 @@ public class IndividuoRepo {
         statement.setString(2,numeroDocumento);
 
         //Ejecuta el query y creamos el Individuo en base al ResultSet
-        try(ResultSet rs = statement.executeQuery()){
-            if(rs.next()){
-                Individuo individuo = crearIndividuo(rs);
-                return Optional.of(individuo);
-            }
+        ResultSet rs = statement.executeQuery();
+        if(rs.next()){
+            Individuo individuo = crearIndividuo(rs);
+            return Optional.of(individuo);
         }
 
         return Optional.empty();
@@ -90,11 +89,10 @@ public class IndividuoRepo {
 
         statement.setString(1,numeroDocumento);
 
-        try(ResultSet rs = statement.executeQuery()){
-            if(rs.next()){
-                Individuo individuo = crearIndividuo(rs);
-                return Optional.of(individuo);
-            }
+        ResultSet rs = statement.executeQuery();
+        if(rs.next()){
+            Individuo individuo = crearIndividuo(rs);
+            return Optional.of(individuo);
         }
         return Optional.empty();
     }
@@ -138,7 +136,7 @@ public class IndividuoRepo {
                 .build();
     }
 
-    private void llenarStatement(PreparedStatement statement, Individuo individuo) throws SQLException {
+    private PreparedStatement llenarStatement(PreparedStatement statement, Individuo individuo) throws SQLException {
             statement.setInt(1, individuo.getHogar().getId());
             statement.setString(2, individuo.getNombre());
             statement.setString(3, individuo.getApellido());
@@ -156,5 +154,6 @@ public class IndividuoRepo {
             statement.setBoolean(15, individuo.getEmbarazada());
             statement.setString(16, individuo.getEstadoEmpleo().name());
             statement.setBoolean(17, individuo.getRepresentanteHogar());
+            return statement;
     }
 }

@@ -5,6 +5,8 @@ import model.Individuo;
 import model.enums.TipoDocumento;
 import repository.IndividuoRepo;
 import services.IndividuoService;
+
+import java.sql.SQLException;
 import java.util.Optional;
 
 
@@ -14,7 +16,7 @@ public class IndividuoServiceImpl implements IndividuoService {
     private final IndividuoRepo individuoRepo;
 
     @Override
-    public Individuo crearIndividuo(Individuo individuo){
+    public Individuo crearIndividuo(Individuo individuo) throws SQLException {
         if(verificarNoVacios(individuo)){
             throw new IllegalArgumentException("Campos del individuo no deben ser vacios");
         }
@@ -22,7 +24,7 @@ public class IndividuoServiceImpl implements IndividuoService {
     }
 
     @Override
-    public Optional<Individuo> buscarIndividuoPorTipoDocumentoYNumero(TipoDocumento tipoDocumento, String numeroDocumento){
+    public Optional<Individuo> buscarIndividuoPorTipoDocumentoYNumero(TipoDocumento tipoDocumento, String numeroDocumento) throws SQLException {
         if(tipoDocumento == null && numeroDocumento.isBlank()){
             return Optional.empty();
         }
@@ -30,7 +32,7 @@ public class IndividuoServiceImpl implements IndividuoService {
     }
 
     @Override
-    public Optional<Individuo> buscarIndividuoPorNumeroDocumento(String numeroDocumento){
+    public Optional<Individuo> buscarIndividuoPorNumeroDocumento(String numeroDocumento) throws SQLException {
         if(numeroDocumento.isBlank()){
             return Optional.empty();
         }
