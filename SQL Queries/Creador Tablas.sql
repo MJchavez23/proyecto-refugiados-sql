@@ -93,11 +93,9 @@ tipo_vacuna VARCHAR(20) NOT NULL,
 FOREIGN KEY(id_individuo) REFERENCES Individuo(id_individuo)
 );
 
-create table Bitacora(
-id_bitacora SERIAL primary key,
-accion VARCHAR(50),
-tabla VARCHAR(50),	
+CREATE TABLE Bitacora(
+usuario VARCHAR(50),
 fecha TIMESTAMP,
-usuario VARCHAR(50)
+accion VARCHAR(50),
+tabla VARCHAR(50)	
 );
-
