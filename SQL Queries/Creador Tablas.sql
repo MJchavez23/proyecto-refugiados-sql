@@ -2,10 +2,10 @@
 
 CREATE TABLE Refugio (
 id_refugio SERIAL PRIMARY KEY,
-nombre_refugio VARCHAR(50) NOT NULL, 
-ciudad_refugio VARCHAR(20) NOT NULL,
-pais_refugio VARCHAR(20) NOT NULL,
-referencia_refugio VARCHAR(50) NOT NULL
+nombre VARCHAR(50) NOT NULL, 
+ciudad VARCHAR(20) NOT NULL,
+pais VARCHAR(20) NOT NULL,
+referencia VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE Hogar (
@@ -32,8 +32,8 @@ tipo_documento VARCHAR(20),
 numero_documento VARCHAR(20),
 discapacidad VARCHAR(20), 
 enfermedad_cronica VARCHAR(20),
+embarazada VARCHAR(10),
 estado_empleo VARCHAR(10),
-embarazo VARCHAR(10),
 representante_hogar BOOL,
 FOREIGN KEY(id_hogar) REFERENCES Hogar(id_hogar)
 );
@@ -64,8 +64,8 @@ id_refugio INTEGER NOT NULL,
 FOREIGN KEY(id_refugio) REFERENCES Refugio(id_refugio)
 );
 
-CREATE TABLE HistorialServicio (
-id_historial SERIAL PRIMARY KEY,
+CREATE TABLE Historial_Servicio (
+id_historial_servicio SERIAL PRIMARY KEY,
 id_servicio INTEGER NOT NULL,
 id_individuo INTEGER NOT NULL,
 id_personal INTEGER NOT NULL,
@@ -78,8 +78,8 @@ FOREIGN KEY(id_individuo) REFERENCES Individuo(id_individuo),
 FOREIGN KEY (id_personal) REFERENCES Personal(id_personal)
 );
 
-CREATE TABLE SaludRegistro (
-id_registro SERIAL PRIMARY KEY,
+CREATE TABLE Registro_Salud (
+id_registro_salud SERIAL PRIMARY KEY,
 id_individuo INTEGER NOT NULL,
 fecha_registro DATE NOT NULL,
 descripcion VARCHAR(40) NOT NULL,
@@ -87,7 +87,7 @@ FOREIGN KEY(id_individuo) REFERENCES Individuo(id_individuo)
 );
 
 CREATE TABLE Vacunas (
-id_vacuna SERIAL PRIMARY KEY,
+id_vacunas SERIAL PRIMARY KEY,
 id_individuo INTEGER NOT NULL,
 tipo_vacuna VARCHAR(20) NOT NULL,
 FOREIGN KEY(id_individuo) REFERENCES Individuo(id_individuo)
