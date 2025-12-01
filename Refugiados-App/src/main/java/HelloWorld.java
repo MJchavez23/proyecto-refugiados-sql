@@ -1,12 +1,22 @@
 import model.Individuo;
+import repository.IndividuoRepo;
+
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 public class HelloWorld {
     public static void main(String[] args) {
-        Individuo individuo = Individuo.builder()
-                .nombre("Luis")
-                .apellido("Apellido")
-                .build();
+        String url =  "jdbc:mysql://localhost:5432/";
+        String user = "postgres";
+        String password = "admin";
 
-        System.out.println(individuo);
+        try {
+            IndividuoRepo ind = new IndividuoRepo(DriverManager.getConnection(url, user, password));
+            ind.guardarIndividuo(Individuo.builder()
+
+                    .build());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
