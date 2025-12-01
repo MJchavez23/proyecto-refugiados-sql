@@ -5,9 +5,8 @@ import model.Individuo;
 import model.enums.TipoDocumento;
 import repository.IndividuoRepo;
 import services.IndividuoService;
-
-import java.sql.SQLException;
 import java.util.Optional;
+
 
 @AllArgsConstructor
 public class IndividuoServiceImpl implements IndividuoService {
@@ -15,7 +14,7 @@ public class IndividuoServiceImpl implements IndividuoService {
     private final IndividuoRepo individuoRepo;
 
     @Override
-    public Individuo crearIndividuo(Individuo individuo) throws SQLException {
+    public Individuo crearIndividuo(Individuo individuo){
         if(verificarNoVacios(individuo)){
             throw new IllegalArgumentException("Campos del individuo no deben ser vacios");
         }
@@ -23,7 +22,7 @@ public class IndividuoServiceImpl implements IndividuoService {
     }
 
     @Override
-    public Optional<Individuo> buscarIndividuoPorTipoDocumentoYNumero(TipoDocumento tipoDocumento, String numeroDocumento) throws SQLException {
+    public Optional<Individuo> buscarIndividuoPorTipoDocumentoYNumero(TipoDocumento tipoDocumento, String numeroDocumento){
         if(tipoDocumento == null && numeroDocumento.isBlank()){
             return Optional.empty();
         }
@@ -31,14 +30,14 @@ public class IndividuoServiceImpl implements IndividuoService {
     }
 
     @Override
-    public Optional<Individuo> buscarIndividuoPorNumeroDocumento(String numeroDocumento) throws SQLException {
+    public Optional<Individuo> buscarIndividuoPorNumeroDocumento(String numeroDocumento){
         if(numeroDocumento.isBlank()){
             return Optional.empty();
         }
         return individuoRepo.buscarIndividuoPorNumeroDocumento(numeroDocumento);
     }
 
-    private boolean verificarNoVacios(Individuo individuo) {
+    private boolean verificarNoVacios(Individuo individuo)  {
         if(individuo.getNombre().isBlank()){
             return false;
         }
@@ -51,7 +50,7 @@ public class IndividuoServiceImpl implements IndividuoService {
         if(individuo.getFechaNacimiento() == null){
             return false;
         }
-        if(individuo.getPais_origen().isBlank()){
+        if(individuo.getPaisOrigen().isBlank()){
             return false;
         }
         if(individuo.getIdiomaPrincipal().isBlank()){
