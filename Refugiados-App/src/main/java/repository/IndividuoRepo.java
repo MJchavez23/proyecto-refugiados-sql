@@ -19,29 +19,25 @@ public class IndividuoRepo {
 
     private final Connection connection;
 
-    public Individuo guardarIndividuo(Individuo individuo) {
+    public Individuo guardarIndividuo(Individuo individuo) throws SQLException {
         String query = "INSERT INTO individuo" +
                 "(id_hogar, nombre, apellido, genero, fecha_nacimiento, pais_origen, idioma_principal, nivel_educativo, telefono, estatus_legal, tipo_documento, numero_documento, discapacidad, enfermedad_cronica, embarazada, estado_empleo, representante_hogar)" +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; //Preparamos el query
 
-        try(PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
-            llenarStatement(statement, individuo); //Ingresa los valores del individuo dentro de statement
+        PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+        llenarStatement(statement, individuo); //Ingresa los valores del individuo dentro de statement
 
-            statement.executeUpdate(); //Ejecutamos el guardado
+        statement.executeUpdate(); //Ejecutamos el guardado
 
-            try(ResultSet idGenerado =  statement.getGeneratedKeys()) { //Obtenemos el id generado y lo seteamos en el modelo
-                if (idGenerado.next()) {
-                    individuo.setId(idGenerado.getInt(1));
-                }
+        try(ResultSet idGenerado =  statement.getGeneratedKeys()) { //Obtenemos el id generado y lo seteamos en el modelo
+            if (idGenerado.next()) {
+                individuo.setId(idGenerado.getInt(1));
             }
-
-        }catch (SQLException ex){
-            ex.printStackTrace();
         }
         return individuo;
     }
 
-    public Optional<Individuo> buscarIndividuoPorTipoDocumentYNumero(String tipoDocumento, String numeroDocumento ) {
+    public Optional<Individuo> buscarIndividuoPorTipoDocumentYNumero(String tipoDocumento, String numeroDocumento ) throws SQLException {
         String query = "SELECT " +
         "i.id_individuo AS ind_id, i.nombre AS ind_nombre, i.apellido, i.genero, " +
         "i.fecha_nacimiento, i.pais_origen, i.idioma_principal, i.nivel_educacion, " +
@@ -57,28 +53,24 @@ public class IndividuoRepo {
         "JOIN refugio r ON h.id_refugio = r.id_refugio " +
         "WHERE tipo_documento = ? AND numero_documento = ?";
 
-        try(PreparedStatement statement = connection.prepareStatement(query)){
+        PreparedStatement statement = connection.prepareStatement(query);
 
-            //Prepara el statement
-            statement.setString(1,tipoDocumento);
-            statement.setString(2,numeroDocumento);
+        //Prepara el statement
+        statement.setString(1,tipoDocumento);
+        statement.setString(2,numeroDocumento);
 
-            //Ejecuta el query y creamos el Individuo en base al ResultSet
-            try(ResultSet rs = statement.executeQuery()){
-                if(rs.next()){
-                    Individuo individuo = crearIndividuo(rs);
-                    return Optional.of(individuo);
-                }
+        //Ejecuta el query y creamos el Individuo en base al ResultSet
+        try(ResultSet rs = statement.executeQuery()){
+            if(rs.next()){
+                Individuo individuo = crearIndividuo(rs);
+                return Optional.of(individuo);
             }
-
-        }catch (SQLException ex){
-            ex.printStackTrace();
         }
 
         return Optional.empty();
     }
 
-    public Optional<Individuo> buscarIndividuoPorNumeroDocumento(String numeroDocumento) {
+    public Optional<Individuo> buscarIndividuoPorNumeroDocumento(String numeroDocumento) throws SQLException {
         String query = "SELECT " +
         "i.id_individuo AS ind_id, i.nombre AS ind_nombre, i.apellido, i.genero, " +
         "i.fecha_nacimiento, i.pais_origen, i.idioma_principal, i.nivel_educacion, " +
@@ -94,19 +86,15 @@ public class IndividuoRepo {
         "JOIN refugio r ON h.id_refugio = r.id_refugio " +
         "WHERE i.numero_documento = ?";
 
-        try(PreparedStatement statement = connection.prepareStatement(query)){
+        PreparedStatement statement = connection.prepareStatement(query);
 
-            statement.setString(1,numeroDocumento);
+        statement.setString(1,numeroDocumento);
 
-            try(ResultSet rs = statement.executeQuery()){
-                if(rs.next()){
-                    Individuo individuo = crearIndividuo(rs);
-                    return Optional.of(individuo);
-                }
+        try(ResultSet rs = statement.executeQuery()){
+            if(rs.next()){
+                Individuo individuo = crearIndividuo(rs);
+                return Optional.of(individuo);
             }
-
-        }catch (SQLException ex){
-            ex.printStackTrace();
         }
         return Optional.empty();
     }
