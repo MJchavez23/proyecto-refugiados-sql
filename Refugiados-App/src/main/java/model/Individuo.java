@@ -22,7 +22,7 @@ public class Individuo {
     private String apellido;
     private String genero;
     private LocalDate fechaNacimiento;
-    private String pais_origen;
+    private String paisOrigen;
     private String idiomaPrincipal;
     private NivelEducacion nivelEducacion;
     private String telefono;
