@@ -43,7 +43,7 @@ public class IndividuoRepo {
 
     public Optional<Individuo> buscarIndividuoPorTipoDocumentYNumero(String tipoDocumento, String numeroDocumento ) {
         String query = "SELECT " +
-        "i.id AS ind_id, i.nombre AS ind_nombre, i.apellido, i.genero, " +
+        "i.id_individuo AS ind_id, i.nombre AS ind_nombre, i.apellido, i.genero, " +
         "i.fecha_nacimiento, i.pais_origen, i.idioma_principal, i.nivel_educacion, " +
         "i.telefono, i.estatus_legal, i.tipo_documento, i.numero_documento, " +
         "i.discapacidad, i.enfermedad_cronica, i.embarazada, i.estado_empleo, i.representante_hogar, " +
@@ -80,7 +80,7 @@ public class IndividuoRepo {
 
     public Optional<Individuo> buscarIndividuoPorNumeroDocumento(String numeroDocumento) {
         String query = "SELECT " +
-        "i.id AS ind_id, i.nombre AS ind_nombre, i.apellido, i.genero, " +
+        "i.id_individuo AS ind_id, i.nombre AS ind_nombre, i.apellido, i.genero, " +
         "i.fecha_nacimiento, i.pais_origen, i.idioma_principal, i.nivel_educacion, " +
         "i.telefono, i.estatus_legal, i.tipo_documento, i.numero_documento, " +
         "i.discapacidad, i.enfermedad_cronica, i.embarazada, i.estado_empleo, i.representante_hogar, " +
@@ -124,6 +124,7 @@ public class IndividuoRepo {
         Hogar hogar = Hogar.builder()
                 .id(rs.getInt("id_hogar"))
                 .refugio(refugio)
+                .nombreHogar(rs.getString("nombre_hogar"))
                 .fechaLlegada(rs.getObject("fecha_llegada_refugio", LocalDate.class))
                 .build();
 
@@ -134,7 +135,7 @@ public class IndividuoRepo {
                 .apellido(rs.getString("apellido"))
                 .genero(rs.getString("genero"))
                 .fechaNacimiento(rs.getObject("fecha_nacimiento", LocalDate.class)) //Convierte el tipo SQL.Date a util.LocalDate
-                .pais_origen(rs.getString("pais_origen"))
+                .paisOrigen(rs.getString("pais_origen"))
                 .idiomaPrincipal(rs.getString("idioma_principal"))
                 .nivelEducacion(NivelEducacion.valueOf(rs.getString("nivel_educacion")))
                 .telefono(rs.getString("telefono"))
@@ -155,7 +156,7 @@ public class IndividuoRepo {
             statement.setString(3, individuo.getApellido());
             statement.setString(4, individuo.getGenero());
             statement.setObject(5, Date.valueOf(individuo.getFechaNacimiento()));
-            statement.setString(6, individuo.getPais_origen());
+            statement.setString(6, individuo.getPaisOrigen());
             statement.setString(7, individuo.getIdiomaPrincipal());
             statement.setString(8, individuo.getNivelEducacion().name());
             statement.setString(9, individuo.getTelefono());
