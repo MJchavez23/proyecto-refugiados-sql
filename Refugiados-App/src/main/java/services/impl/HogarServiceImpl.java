@@ -1,6 +1,5 @@
 package services.impl;
 
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import model.Hogar;
 import repository.HogarRepo;

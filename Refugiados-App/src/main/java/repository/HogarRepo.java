@@ -1,6 +1,7 @@
 package repository;
 
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import model.Hogar;
 import model.Refugio;
 
@@ -10,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class HogarRepo {
 
     private final Connection connection;

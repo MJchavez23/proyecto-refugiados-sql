@@ -1,6 +1,6 @@
 package services.impl;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import model.Individuo;
 import model.enums.TipoDocumento;
 import repository.IndividuoRepo;
@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.Optional;
 
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class IndividuoServiceImpl implements IndividuoService {
 
     private final IndividuoRepo individuoRepo;
