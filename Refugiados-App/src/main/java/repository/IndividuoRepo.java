@@ -1,15 +1,11 @@
 package repository;
 
 
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import model.Hogar;
 import model.Individuo;
 import model.Refugio;
-import model.enums.EstadoEmpleo;
-import model.enums.EstatusLegal;
-import model.enums.NivelEducacion;
-import model.enums.TipoDocumento;
+import model.enums.*;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -120,7 +116,7 @@ public class IndividuoRepo {
                 .hogar(hogar)
                 .nombre(rs.getString("ind_nombre"))
                 .apellido(rs.getString("apellido"))
-                .genero(rs.getString("genero"))
+                .genero(Genero.valueOf(rs.getString("genero")))
                 .fechaNacimiento(rs.getObject("fecha_nacimiento", LocalDate.class)) //Convierte el tipo SQL.Date a util.LocalDate
                 .paisOrigen(rs.getString("pais_origen"))
                 .idiomaPrincipal(rs.getString("idioma_principal"))
@@ -141,7 +137,7 @@ public class IndividuoRepo {
             statement.setInt(1, individuo.getHogar().getId());
             statement.setString(2, individuo.getNombre());
             statement.setString(3, individuo.getApellido());
-            statement.setString(4, individuo.getGenero());
+            statement.setString(4, individuo.getGenero().name());
             statement.setObject(5, Date.valueOf(individuo.getFechaNacimiento()));
             statement.setString(6, individuo.getPaisOrigen());
             statement.setString(7, individuo.getIdiomaPrincipal());
