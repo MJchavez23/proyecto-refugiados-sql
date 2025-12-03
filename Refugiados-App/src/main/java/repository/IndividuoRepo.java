@@ -8,6 +8,8 @@ import model.Refugio;
 import model.enums.*;
 import java.sql.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -91,6 +93,30 @@ public class IndividuoRepo {
             return Optional.of(individuo);
         }
         return Optional.empty();
+    }
+
+    public List<Individuo> buscarTodosIndividuos() throws SQLException {
+        List<Individuo> individuos = new ArrayList<>();
+        String query = "SELECT " +
+        "i.id_individuo AS ind_id, i.nombre AS ind_nombre, i.apellido, i.genero, " +
+        "i.fecha_nacimiento, i.pais_origen, i.idioma_principal, i.nivel_educacion, " +
+        "i.telefono, i.estatus_legal, i.tipo_documento, i.numero_documento, " +
+        "i.discapacidad, i.enfermedad_cronica, i.embarazada, i.estado_empleo, i.representante_hogar, " +
+
+        "h.id_hogar AS hog_id, h.fecha_llegada_refugio, h.nombre_hogar, " +
+
+        "r.id_refugio AS ref_id, r.nombre AS ref_nombre, r.ciudad, r.pais, r.referencia " +
+
+        "FROM individuo i " +
+        "JOIN hogar h ON i.id_hogar = h.id_hogar " +
+        "JOIN refugio r ON h.id_refugio = r.id_refugio ";
+        PreparedStatement statement = connection.prepareStatement(query);
+        ResultSet rs = statement.executeQuery();
+        while(rs.next()){
+            Individuo individuo = crearIndividuo(rs);
+            individuos.add(individuo);
+        }
+        return individuos;
     }
 
     private Individuo crearIndividuo(ResultSet rs) throws SQLException {
