@@ -26,7 +26,7 @@ fecha_nacimiento DATE NOT NULL,
 pais_origen VARCHAR(20) NOT NULL,
 idioma_principal VARCHAR(20) NOT NULL,
 nivel_educativo VARCHAR(20),
-telefono VARCHAR(10),
+telefono VARCHAR(20),
 estatus_legal VARCHAR(20),
 tipo_documento VARCHAR(20),
 numero_documento VARCHAR(20),
@@ -99,3 +99,4 @@ fecha TIMESTAMP,
 accion VARCHAR(50),
 tabla VARCHAR(50)	
 );
+
