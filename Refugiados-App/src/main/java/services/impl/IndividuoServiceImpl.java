@@ -1,6 +1,6 @@
 package services.impl;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import model.Individuo;
 import model.enums.TipoDocumento;
 import repository.IndividuoRepo;
@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.Optional;
 
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class IndividuoServiceImpl implements IndividuoService {
 
     private final IndividuoRepo individuoRepo;
@@ -20,6 +20,7 @@ public class IndividuoServiceImpl implements IndividuoService {
         if(verificarNoVacios(individuo)){
             throw new IllegalArgumentException("Campos del individuo no deben ser vacios");
         }
+        validarUnico(individuo.getNumeroDocumento());
         return individuoRepo.guardarIndividuo(individuo);
     }
 
@@ -39,6 +40,14 @@ public class IndividuoServiceImpl implements IndividuoService {
         return individuoRepo.buscarIndividuoPorNumeroDocumento(numeroDocumento);
     }
 
+
+    private void validarUnico(String numeroDocumento) throws SQLException {
+        Optional<Individuo> ind = individuoRepo.buscarIndividuoPorNumeroDocumento(numeroDocumento);
+        if(ind.isPresent()){
+            throw new SQLException("Individuo ya existe");
+        }
+    }
+
     private boolean verificarNoVacios(Individuo individuo)  {
         if(individuo.getNombre().isBlank()){
             return false;
@@ -46,7 +55,7 @@ public class IndividuoServiceImpl implements IndividuoService {
         if(individuo.getApellido().isBlank()){
             return false;
         }
-        if(individuo.getGenero().isBlank()){
+        if(individuo.getGenero() == null){
             return false;
         }
         if(individuo.getFechaNacimiento() == null){

@@ -4,10 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import model.enums.EstadoEmpleo;
-import model.enums.EstatusLegal;
-import model.enums.NivelEducacion;
-import model.enums.TipoDocumento;
+import model.enums.*;
 
 import java.time.LocalDate;
 
@@ -20,7 +17,7 @@ public class Individuo {
     private Hogar hogar;
     private String nombre;
     private String apellido;
-    private String genero;
+    private Genero genero;
     private LocalDate fechaNacimiento;
     private String paisOrigen;
     private String idiomaPrincipal;

@@ -2,6 +2,7 @@ package repository;
 
 
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import model.Hogar;
 import model.Individuo;
 import model.Refugio;
@@ -14,7 +15,7 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.util.Optional;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class IndividuoRepo {
 
     private final Connection connection;
