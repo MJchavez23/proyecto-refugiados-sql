@@ -6,7 +6,6 @@ import model.Hogar;
 import model.Individuo;
 import model.Refugio;
 import model.enums.*;
-
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.Optional;
