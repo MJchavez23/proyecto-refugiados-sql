@@ -11,7 +11,7 @@ public class HistorialServicioRepo {
     private final Connection connection;
 
     public HistorialServicio guardarHistorialServicio(HistorialServicio historialServicio) throws SQLException {
-        String query = "INSERT INTO historial_servicio(tipo_servicio, id_hogar, id_personal, fecha_servicio, estado_servicio, descripcion, ultima_modificacion)" +
+        String query = "INSERT INTO historial_servicio(id_servicio, id_hogar, id_personal, fecha_servicio, estado_servicio, descripcion, ultima_modificacion)" +
                 "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         PreparedStatement preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
@@ -24,9 +24,9 @@ public class HistorialServicioRepo {
     }
 
     private PreparedStatement llenarStatement(PreparedStatement preparedStatement, HistorialServicio historialServicio) throws SQLException {
-        preparedStatement.setString(1, historialServicio.getServicio().name());
+        preparedStatement.setInt(1, 1); //Unico que servicio q se necesita
         preparedStatement.setInt(2, historialServicio.getHogar().getId());
-        preparedStatement.setInt(3, 1);
+        preparedStatement.setInt(3, 1); //Solo hay id de personal valida(no cambiar)
         preparedStatement.setObject(4, Date.valueOf(historialServicio.getFechaServicio()));
         preparedStatement.setString(5, historialServicio.getEstadoServicio().name());
         preparedStatement.setString(6, historialServicio.getDescripcion());
