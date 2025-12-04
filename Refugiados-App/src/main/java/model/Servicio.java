@@ -13,6 +13,7 @@ import model.enums.TipoServicio;
 @Builder
 public class Servicio {
     private int id;
-    private TipoServicio tipoServicio;
-    private String areaServicio;
+    private TipoServicio nombreServicio;
+    private String descripcionServicio;
+    private String categoriaServicio;
 }
