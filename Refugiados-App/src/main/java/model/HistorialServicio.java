@@ -22,5 +22,4 @@ public class HistorialServicio {
     private EstadoServicio estadoServicio;
     private String descripcion;
     private LocalDate ultimaModificacion;
-
 }
