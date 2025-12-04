@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import model.enums.EstadoServicio;
+import model.enums.TipoServicio;
 
 import java.time.LocalDate;
 
@@ -12,9 +13,9 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class HistorialServicios {
+public class HistorialServicio {
     private int id;
-    private Servicio servicio;
+    private TipoServicio servicio;
     private Hogar hogar;
     private Personal personal;
     private LocalDate fechaServicio;
