@@ -50,8 +50,9 @@ FOREIGN KEY (id_hogar) REFERENCES Hogar(id_hogar)
 
 CREATE TABLE Servicios (
 id_servicio SERIAL PRIMARY KEY, 
-tipo_servicio VARCHAR(40) NOT NULL,
-area_servicio VARCHAR(40) NOT NULL
+nombre_servicio VARCHAR(40) NOT NULL,
+descripcion_servicio VARCHAR(100) NOT NULL,
+categoria_servicio VARCHAR(40) NOT NULL
 );
 
 CREATE TABLE Personal (
@@ -99,6 +100,7 @@ fecha TIMESTAMP,
 accion VARCHAR(50),
 tabla VARCHAR(50)	
 );
+
 
 
 
