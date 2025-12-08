@@ -17,75 +17,22 @@ public class IndividuoRepo {
 
     private final Connection connection;
 
-    public Individuo guardarIndividuo(Individuo individuo) throws SQLException {
-        String query = "INSERT INTO individuo" +
-                "(id_hogar, nombre, apellido, genero, fecha_nacimiento, pais_origen, idioma_principal, nivel_educativo, telefono, estatus_legal, tipo_documento, numero_documento, discapacidad, enfermedad_cronica, embarazada, estado_empleo, representante_hogar)" +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; //Preparamos el query
+    public void guardarIndividuo(Individuo individuo) throws SQLException {
+        String query = "SELECT guardar_individuo(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; //Preparamos el query
 
-        PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+        PreparedStatement statement = connection.prepareStatement(query);
         PreparedStatement statementListo = llenarStatement(statement, individuo); //Ingresa los valores del individuo dentro de statement
 
-        statementListo.executeUpdate(); //Ejecutamos el guardado
-
-        try(ResultSet idGenerado =  statementListo.getGeneratedKeys()) { //Obtenemos el id generado y lo seteamos en el modelo
-            if (idGenerado.next()) {
-                individuo.setId(idGenerado.getInt(1));
-            }
-        }
-        return individuo;
+        statementListo.execute(); //Ejecutamos el guardado
     }
 
-    public Optional<Individuo> buscarIndividuoPorTipoDocumentYNumero(String tipoDocumento, String numeroDocumento ) throws SQLException {
-        String query = "SELECT " +
-        "i.id_individuo AS ind_id, i.nombre AS ind_nombre, i.apellido, i.genero, " +
-        "i.fecha_nacimiento, i.pais_origen, i.idioma_principal, i.nivel_educacion, " +
-        "i.telefono, i.estatus_legal, i.tipo_documento, i.numero_documento, " +
-        "i.discapacidad, i.enfermedad_cronica, i.embarazada, i.estado_empleo, i.representante_hogar, " +
-
-        "h.id_hogar AS hog_id, h.fecha_llegada_refugio, h.nombre_hogar ," +
-
-        "r.id_refugio AS ref_id, r.nombre AS ref_nombre, r.ciudad, r.pais, r.referencia " +
-
-        "FROM individuo i " +
-        "JOIN hogar h ON i.id_hogar = h.id_hogar " +
-        "JOIN refugio r ON h.id_refugio = r.id_refugio " +
-        "WHERE tipo_documento = ? AND numero_documento = ?";
-
-        PreparedStatement statement = connection.prepareStatement(query);
-
-        //Prepara el statement
-        statement.setString(1,tipoDocumento);
-        statement.setString(2,numeroDocumento);
-
-        //Ejecuta el query y creamos el Individuo en base al ResultSet
-        ResultSet rs = statement.executeQuery();
-        if(rs.next()){
-            Individuo individuo = crearIndividuo(rs);
-            return Optional.of(individuo);
-        }
-
-        return Optional.empty();
-    }
 
     public Optional<Individuo> buscarIndividuoPorNumeroDocumento(String numeroDocumento) throws SQLException {
-        String query = "SELECT " +
-        "i.id_individuo AS ind_id, i.nombre AS ind_nombre, i.apellido, i.genero, " +
-        "i.fecha_nacimiento, i.pais_origen, i.idioma_principal, i.nivel_educacion, " +
-        "i.telefono, i.estatus_legal, i.tipo_documento, i.numero_documento, " +
-        "i.discapacidad, i.enfermedad_cronica, i.embarazada, i.estado_empleo, i.representante_hogar, " +
-
-        "h.id_hogar AS hog_id, h.fecha_llegada_refugio, h.nombre_hogar, " +
-
-        "r.id_refugio AS ref_id, r.nombre AS ref_nombre, r.ciudad, r.pais, r.referencia " +
-
-        "FROM individuo i " +
-        "JOIN hogar h ON i.id_hogar = h.id_hogar " +
-        "JOIN refugio r ON h.id_refugio = r.id_refugio " +
-        "WHERE i.numero_documento = ?";
+        String query = "SELECT * FROM buscarIndividuoPorNumeroDeDocumento(?);";
 
         PreparedStatement statement = connection.prepareStatement(query);
 
-        statement.setString(1,numeroDocumento);
+        statement.setString(1, numeroDocumento);
 
         ResultSet rs = statement.executeQuery();
         if(rs.next()){
@@ -97,19 +44,7 @@ public class IndividuoRepo {
 
     public List<Individuo> buscarTodosIndividuos() throws SQLException {
         List<Individuo> individuos = new ArrayList<>();
-        String query = "SELECT " +
-        "i.id_individuo AS ind_id, i.nombre AS ind_nombre, i.apellido, i.genero, " +
-        "i.fecha_nacimiento, i.pais_origen, i.idioma_principal, i.nivel_educacion, " +
-        "i.telefono, i.estatus_legal, i.tipo_documento, i.numero_documento, " +
-        "i.discapacidad, i.enfermedad_cronica, i.embarazada, i.estado_empleo, i.representante_hogar, " +
-
-        "h.id_hogar AS hog_id, h.fecha_llegada_refugio, h.nombre_hogar, " +
-
-        "r.id_refugio AS ref_id, r.nombre AS ref_nombre, r.ciudad, r.pais, r.referencia " +
-
-        "FROM individuo i " +
-        "JOIN hogar h ON i.id_hogar = h.id_hogar " +
-        "JOIN refugio r ON h.id_refugio = r.id_refugio ";
+        String query = "SELECT * FROM buscarTodosIndividuos();";
         PreparedStatement statement = connection.prepareStatement(query);
         ResultSet rs = statement.executeQuery();
         while(rs.next()){
@@ -125,12 +60,12 @@ public class IndividuoRepo {
                 .nombre(rs.getString("ref_nombre"))
                 .ciudad(rs.getString("ciudad"))
                 .pais(rs.getString("pais"))
-                .referenciaUbicacion(rs.getString("referencia_ubicacion"))
+                .referenciaUbicacion(rs.getString("referencia"))
 
                 .build();
 
         Hogar hogar = Hogar.builder()
-                .id(rs.getInt("id_hogar"))
+                .id(rs.getInt("hog_id"))
                 .refugio(refugio)
                 .nombreHogar(rs.getString("nombre_hogar"))
                 .fechaLlegada(rs.getObject("fecha_llegada_refugio", LocalDate.class))
@@ -145,7 +80,7 @@ public class IndividuoRepo {
                 .fechaNacimiento(rs.getObject("fecha_nacimiento", LocalDate.class)) //Convierte el tipo SQL.Date a util.LocalDate
                 .paisOrigen(rs.getString("pais_origen"))
                 .idiomaPrincipal(rs.getString("idioma_principal"))
-                .nivelEducacion(NivelEducacion.valueOf(rs.getString("nivel_educacion")))
+                .nivelEducacion(NivelEducacion.valueOf(rs.getString("nivel_educativo")))
                 .telefono(rs.getString("telefono"))
                 .estatusLegal(EstatusLegal.valueOf(rs.getString("estatus_legal")))
                 .tipoDocumento(TipoDocumento.valueOf(rs.getString("tipo_documento")))
@@ -153,7 +88,7 @@ public class IndividuoRepo {
                 .discapacidad(rs.getString("discapacidad"))
                 .enfermedadCronica(rs.getString("enfermedad_cronica"))
                 .embarazada(rs.getBoolean("embarazada"))
-                .estadoEmpleo(EstadoEmpleo.valueOf(rs.getString("estado_empleado")))
+                .estadoEmpleo(EstadoEmpleo.valueOf(rs.getString("estado_empleo")))
                 .representanteHogar(rs.getBoolean("representante_hogar"))
                 .build();
     }

@@ -7,6 +7,7 @@ import repository.IndividuoRepo;
 import services.IndividuoService;
 
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -16,20 +17,12 @@ public class IndividuoServiceImpl implements IndividuoService {
     private final IndividuoRepo individuoRepo;
 
     @Override
-    public Individuo crearIndividuo(Individuo individuo) throws SQLException {
-        if(verificarNoVacios(individuo)){
+    public void crearIndividuo(Individuo individuo) throws SQLException {
+        if(!verificarNoVacios(individuo)){
             throw new IllegalArgumentException("Campos del individuo no deben ser vacios");
         }
         validarUnico(individuo.getNumeroDocumento());
-        return individuoRepo.guardarIndividuo(individuo);
-    }
-
-    @Override
-    public Optional<Individuo> buscarIndividuoPorTipoDocumentoYNumero(TipoDocumento tipoDocumento, String numeroDocumento) throws SQLException {
-        if(tipoDocumento == null && numeroDocumento.isBlank()){
-            return Optional.empty();
-        }
-        return individuoRepo.buscarIndividuoPorTipoDocumentYNumero(tipoDocumento.name(), numeroDocumento);
+        individuoRepo.guardarIndividuo(individuo);
     }
 
     @Override
@@ -38,6 +31,11 @@ public class IndividuoServiceImpl implements IndividuoService {
             return Optional.empty();
         }
         return individuoRepo.buscarIndividuoPorNumeroDocumento(numeroDocumento);
+    }
+
+    @Override
+    public List<Individuo> buscarTodosIndividuos() throws SQLException {
+        return individuoRepo.buscarTodosIndividuos();
     }
 
 
@@ -49,10 +47,20 @@ public class IndividuoServiceImpl implements IndividuoService {
     }
 
     private boolean verificarNoVacios(Individuo individuo)  {
-        if(individuo.getNombre().isBlank()){
+
+        String nombre = individuo.getNombre();
+        String apellido = individuo.getApellido();
+        String paisOrigen = individuo.getPaisOrigen();
+        String idiomaPrincipal = individuo.getIdiomaPrincipal();
+        String telefono = individuo.getTelefono();
+        String numeroDocumento = individuo.getNumeroDocumento();
+        String discapacidad = individuo.getDiscapacidad();
+        String enfermedadCronica = individuo.getEnfermedadCronica();
+
+        if(nombre == null || nombre.isBlank()){
             return false;
         }
-        if(individuo.getApellido().isBlank()){
+        if(apellido == null || apellido.isBlank()){
             return false;
         }
         if(individuo.getGenero() == null){
@@ -61,16 +69,17 @@ public class IndividuoServiceImpl implements IndividuoService {
         if(individuo.getFechaNacimiento() == null){
             return false;
         }
-        if(individuo.getPaisOrigen().isBlank()){
+
+        if(paisOrigen == null || paisOrigen.isBlank()){
             return false;
         }
-        if(individuo.getIdiomaPrincipal().isBlank()){
+        if(idiomaPrincipal == null || idiomaPrincipal.isBlank()){
             return false;
         }
         if (individuo.getNivelEducacion() == null) {
             return false;
         }
-        if(individuo.getTelefono().isBlank()){
+        if(telefono == null || telefono.isBlank()){
             return false;
         }
         if (individuo.getEstatusLegal() == null) {
@@ -79,13 +88,13 @@ public class IndividuoServiceImpl implements IndividuoService {
         if (individuo.getTipoDocumento() == null) {
             return false;
         }
-        if (individuo.getNumeroDocumento().isBlank()) {
+        if (numeroDocumento == null || numeroDocumento.isBlank()) {
             return false;
         }
-        if (individuo.getDiscapacidad().isBlank()) {
+        if (discapacidad == null || discapacidad.isBlank()) {
             return false;
         }
-        if (individuo.getEnfermedadCronica().isBlank()) {
+        if (enfermedadCronica == null || enfermedadCronica.isBlank()) {
             return false;
         }
         if (individuo.getEmbarazada() == null) {
