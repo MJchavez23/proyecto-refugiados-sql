@@ -5,18 +5,16 @@ $$
 DECLARE 
 BEGIN
 INSERT INTO Bitacora (
-idbitacora,
-accion,
-tabla,
-fecha,
 usuario
+fecha,
+accion,
+tabla
 ) 
 VALUES(
-nextval(),
-TG_OP,
-'Vacunas',
+CURRENT_USER,
 CURRENT_DATE,
-CURRENT_USER
+TG_OP,
+'Vacunas'
 );
 END;
 $$ LANGUAGE plpgsql;
@@ -25,3 +23,4 @@ CREATE TRIGGER trigger_vacunas
 AFTER INSERT OR UPDATE OR DELETE ON Vacunas
 FOR EACH ROW
 EXECUTE FUNCTION actualizarBitacora_vacunas();
+
