@@ -21,9 +21,9 @@ public class IndividuoRepo {
         String query = "SELECT guardar_individuo(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; //Preparamos el query
 
         PreparedStatement statement = connection.prepareStatement(query);
-        PreparedStatement statementListo = llenarStatement(statement, individuo); //Ingresa los valores del individuo dentro de statement
+        llenarStatement(statement, individuo); //Ingresa los valores del individuo dentro de statement
 
-        statementListo.execute(); //Ejecutamos el guardado
+        statement.execute(); //Ejecutamos el guardado
     }
 
 
@@ -93,7 +93,7 @@ public class IndividuoRepo {
                 .build();
     }
 
-    private PreparedStatement llenarStatement(PreparedStatement statement, Individuo individuo) throws SQLException {
+    private void llenarStatement(PreparedStatement statement, Individuo individuo) throws SQLException {
             statement.setInt(1, individuo.getHogar().getId());
             statement.setString(2, individuo.getNombre());
             statement.setString(3, individuo.getApellido());
@@ -111,6 +111,5 @@ public class IndividuoRepo {
             statement.setBoolean(15, individuo.getEmbarazada());
             statement.setString(16, individuo.getEstadoEmpleo().name());
             statement.setBoolean(17, individuo.getRepresentanteHogar());
-            return statement;
     }
 }
