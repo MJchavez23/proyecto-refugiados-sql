@@ -11,4 +11,5 @@ public interface IndividuoService {
     void crearIndividuo(Individuo individuo) throws SQLException;
     Optional<Individuo> buscarIndividuoPorNumeroDocumento(String numeroDocumento) throws SQLException;
     List<Individuo> buscarTodosIndividuos() throws SQLException;
+    void crearVariosIndividuos(List<Individuo> individuos) throws SQLException;
 }

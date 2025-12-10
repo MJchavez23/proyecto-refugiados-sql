@@ -38,6 +38,17 @@ public class IndividuoServiceImpl implements IndividuoService {
         return individuoRepo.buscarTodosIndividuos();
     }
 
+    @Override
+    public void crearVariosIndividuos(List<Individuo> individuos) throws SQLException {
+        for (Individuo individuo : individuos) {
+            if(!verificarNoVacios(individuo)){
+                throw new IllegalArgumentException("Campos del individuo no deben ser vacios");
+            }
+            verificarNoVacios(individuo);
+            individuoRepo.guardarIndividuo(individuo);
+        }
+    }
+
 
     private void validarUnico(String numeroDocumento) throws SQLException {
         Optional<Individuo> ind = individuoRepo.buscarIndividuoPorNumeroDocumento(numeroDocumento);
