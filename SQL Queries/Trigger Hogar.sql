@@ -20,20 +20,20 @@ END;
 $$ language plpgsql;
 
 --leer hogar
-CREATE OR REPLACE FUNCTION leer_Hogar(a_idhogar INTEGER)
+CREATE OR REPLACE FUNCTION leer_Hogar(a_id_hogar INTEGER)
 RETURNS SETOF Hogar AS 
 $$
 BEGIN
-SELECT * FROM Hogar WHERE idhogar = a_idhogar;
+SELECT * FROM Hogar WHERE id_hogar = a_id_hogar;
 END;
 $$ LANGUAGE plpgsql;
 
 --borrar hogar
-CREATE OR REPLACE FUNCTION borrar_Hogar(a_idhogar INTEGER)
+CREATE OR REPLACE FUNCTION borrar_Hogar(a_id_hogar INTEGER)
 RETURNS void AS 
 $$
 BEGIN
-DELETE FROM Hogar WHERE idhogar = a_idhogar;
+DELETE FROM Hogar WHERE id_hogar = a_id_hogar;
 END;
 $$ LANGUAGE plpgsql;
 
@@ -44,18 +44,16 @@ $$
 DECLARE 
 BEGIN
 INSERT INTO Bitacora (
-idbitacora,
-accion,
-tabla,
-fecha,
 usuario
+fecha,
+accion,
+tabla
 ) 
 VALUES(
-nextval(),
-TG_OP,
-'Hogar',
+CURRENT_USER,
 CURRENT_DATE,
-CURRENT_USER
+TG_OP,
+'Hogar'
 );
 END;
 $$ LANGUAGE plpgsql;
@@ -64,6 +62,7 @@ CREATE TRIGGER trigger_hogar
 AFTER INSERT OR UPDATE OR DELETE ON Hogar
 FOR EACH ROW
 EXECUTE FUNCTION actualizarBitacora_hogar();
+
 
 
 
