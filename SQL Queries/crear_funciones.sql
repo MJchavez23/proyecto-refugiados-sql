@@ -192,6 +192,62 @@ BEGIN
 END 
 $$ LANGUAGE plpgsql;
 
+CREATE OR REPLACE FUNCTION obtener_detalle_hogar(p_id_hogar INT)
+RETURNS TABLE (
+    id_hogar INT,
+    ref_id_refugio INT,
+    nombre_hogar VARCHAR,
+    fecha_llegada_refugio DATE,
+    nombre_refugio VARCHAR,
+    ciudad VARCHAR,
+    pais VARCHAR,
+    referencia VARCHAR
+) 
+AS $$
+BEGIN
+    RETURN QUERY 
+    SELECT 
+        h.id_hogar, 
+        r.id_refugio AS ref_id_refugio, 
+        h.nombre_hogar, 
+        h.fecha_llegada_refugio, 
+        r.nombre AS nombre_refugio, 
+        r.ciudad, 
+        r.pais, 
+        r.referencia
+    FROM Hogar h 
+    JOIN Refugio r ON h.id_refugio = r.id_refugio 
+    WHERE h.id_hogar = p_id_hogar;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION obtener_todos_hogares_detallados()
+RETURNS TABLE (
+    id_hogar INT,
+    ref_id_refugio INT,
+    nombre_hogar VARCHAR,
+    fecha_llegada_refugio DATE,
+    nombre_refugio VARCHAR,
+    ciudad VARCHAR,
+    pais VARCHAR,
+    referencia VARCHAR
+) 
+AS $$
+BEGIN
+    RETURN QUERY 
+    SELECT 
+        h.id_hogar, 
+        r.id_refugio AS ref_id_refugio, 
+        h.nombre_hogar, 
+        h.fecha_llegada_refugio, 
+        r.nombre AS nombre_refugio, 
+        r.ciudad, 
+        r.pais, 
+        r.referencia
+    FROM Hogar h 
+    JOIN Refugio r ON h.id_refugio = r.id_refugio;
+END;
+$$ LANGUAGE plpgsql;
 
 
 
