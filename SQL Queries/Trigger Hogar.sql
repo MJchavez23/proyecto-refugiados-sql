@@ -62,8 +62,3 @@ CREATE TRIGGER trigger_hogar
 AFTER INSERT OR UPDATE OR DELETE ON Hogar
 FOR EACH ROW
 EXECUTE FUNCTION actualizarBitacora_hogar();
-
-
-
-
-
