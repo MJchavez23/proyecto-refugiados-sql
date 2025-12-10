@@ -32,9 +32,9 @@ tipo_documento VARCHAR(20),
 numero_documento VARCHAR(20),
 discapacidad VARCHAR(20), 
 enfermedad_cronica VARCHAR(20),
-embarazada BOOL,
+embarazada BOOLEAN,
 estado_empleo VARCHAR(20),
-representante_hogar BOOL,
+representante_hogar BOOLEAN,
 FOREIGN KEY(id_hogar) REFERENCES Hogar(id_hogar)
 );
 
@@ -49,12 +49,12 @@ FOREIGN KEY (id_hogar) REFERENCES Hogar(id_hogar)
 );
 
 CREATE TABLE Servicios (
-  id_servicio SERIAL PRIMARY KEY,
-  nombre_servicio varchar(100),
-  id_hogar integer,
-  descripcion_servicio varchar(255),
-  estado_servicio varchar(50),
-  CONSTRAINT fk_servicios_hogar FOREIGN KEY (id_hogar) REFERENCES Hogar (id_hogar)
+id_servicio SERIAL PRIMARY KEY,
+nombre_servicio VARCHAR(100) NOT NULL,
+id_hogar INTEGER NOT NULL,
+descripcion_servicio VARCHAR(255) NOT NULL,
+estado_servicio VARCHAR(50) NOT NULL,
+CONSTRAINT fk_servicios_hogar FOREIGN KEY (id_hogar) REFERENCES Hogar (id_hogar)
 );
 
 CREATE TABLE Personal (
@@ -68,13 +68,13 @@ FOREIGN KEY(id_refugio) REFERENCES Refugio(id_refugio)
 );
 
 CREATE TABLE Historial_Servicios (
-  id_historial_servicio SERIAL PRIMARY KEY,
-  id_servicio integer,
-  id_personal integer,
-  descripcion varchar(255),
-  fecha_registro date,
-  CONSTRAINT fk_historial_servicio FOREIGN KEY (id_servicio) REFERENCES Servicios (id_servicio),
-  CONSTRAINT fk_historial_personal FOREIGN KEY (id_personal) REFERENCES Personal (id_personal)
+id_historial_servicio SERIAL PRIMARY KEY,
+id_servicio INTEGER NOT NULL,
+id_personal INTEGER NOT NULL,
+descripcion VARCHAR(255) NOT NULL,
+fecha_registro DATE NOT NULL,
+CONSTRAINT fk_historial_servicio FOREIGN KEY (id_servicio) REFERENCES Servicios (id_servicio),
+CONSTRAINT fk_historial_personal FOREIGN KEY (id_personal) REFERENCES Personal (id_personal)
 );
 
 CREATE TABLE Registro_Salud (
@@ -98,8 +98,3 @@ fecha TIMESTAMP,
 accion VARCHAR(50),
 tabla VARCHAR(50)	
 );
-
-
-
-
-
