@@ -76,18 +76,16 @@ $$
 DECLARE 
 BEGIN
 INSERT INTO Bitacora (
-idbitacora,
-accion,
-tabla,
-fecha,
 usuario
+fecha,
+accion,
+tabla
 ) 
 VALUES(
-nextval(),
-TG_OP,
-'Individuo',
+CURRENT_USER,
 CURRENT_DATE,
-CURRENT_USER
+TG_OP,
+'Individuo'
 );
 END;
 $$ LANGUAGE plpgsql;
@@ -96,5 +94,6 @@ CREATE TRIGGER trigger_individuo
 AFTER INSERT OR UPDATE OR DELETE ON Individuo
 FOR EACH ROW
 EXECUTE FUNCTION actualizarBitacora_individuo();
+
 
 
