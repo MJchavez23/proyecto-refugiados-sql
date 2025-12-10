@@ -18,7 +18,7 @@ a_estado_empleo BOOL
 $$
 BEGIN 
 INSERT INTO Individuo(
-idhogar,
+id_hogar,
 nombre,
 apellido,
 genero,
@@ -52,20 +52,20 @@ END;
 $$ language plpgsql;
 
 --leer individuo
-CREATE OR REPLACE FUNCTION leer_individuo(a_idindividuo INTEGER)
+CREATE OR REPLACE FUNCTION leer_individuo(a_id_individuo INTEGER)
 RETURNS SETOF Individuo AS 
 $$
 BEGIN
-SELECT * FROM Individuo WHERE idindividuo = a_idindividuo;
+SELECT * FROM Individuo WHERE id_individuo = a_id_individuo;
 END;
 $$ LANGUAGE plpgsql;
 
 --borrar individuo
-CREATE OR REPLACE FUNCTION borrar_individuo(a_idindividuo INTEGER)
+CREATE OR REPLACE FUNCTION borrar_individuo(a_id_individuo INTEGER)
 RETURNS void AS 
 $$
 BEGIN
-DELETE FROM Individuo WHERE idindividuo = a_idindividuo;
+DELETE FROM Individuo WHERE id_individuo = a_id_individuo;
 END;
 $$ LANGUAGE plpgsql;
 
@@ -94,6 +94,7 @@ CREATE TRIGGER trigger_individuo
 AFTER INSERT OR UPDATE OR DELETE ON Individuo
 FOR EACH ROW
 EXECUTE FUNCTION actualizarBitacora_individuo();
+
 
 
 
