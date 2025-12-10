@@ -1,6 +1,5 @@
 --crear hogar
 CREATE OR REPLACE FUNCTION crearHogar (
-a_idrefugio INTEGER,
 a_hogar_tamano INTEGER,
 a_fecha_llegada_pais DATE ,
 a_fecha_llegada_refugio DATE
@@ -8,7 +7,6 @@ a_fecha_llegada_refugio DATE
 $$
 BEGIN 
 INSERT INTO Hogar(
-idrefugio,
 hogar_tamano,
 fecha_llegada_pais,
 fecha_llegada_refugio
@@ -66,6 +64,7 @@ CREATE TRIGGER trigger_hogar
 AFTER INSERT OR UPDATE OR DELETE ON Hogar
 FOR EACH ROW
 EXECUTE FUNCTION actualizarBitacora_hogar();
+
 
 
 
