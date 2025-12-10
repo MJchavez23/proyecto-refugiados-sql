@@ -41,11 +41,7 @@ public class IndividuoServiceImpl implements IndividuoService {
     @Override
     public void crearVariosIndividuos(List<Individuo> individuos) throws SQLException {
         for (Individuo individuo : individuos) {
-            if(!verificarNoVacios(individuo)){
-                throw new IllegalArgumentException("Campos del individuo no deben ser vacios");
-            }
-            verificarNoVacios(individuo);
-            individuoRepo.guardarIndividuo(individuo);
+            crearIndividuo(individuo);
         }
     }
 
