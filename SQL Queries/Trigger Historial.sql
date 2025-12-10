@@ -5,18 +5,16 @@ $$
 DECLARE 
 BEGIN
 INSERT INTO Bitacora (
-idbitacora,
-accion,
-tabla,
-fecha,
 usuario
+fecha,
+accion,
+tabla
 ) 
 VALUES(
-nextval(),
-TG_OP,
-'HistorialServicio',
+CURRENT_USER,
 CURRENT_DATE,
-CURRENT_USER
+TG_OP,
+'HistorialServicio'
 );
 END;
 $$ LANGUAGE plpgsql;
@@ -25,5 +23,6 @@ CREATE TRIGGER trigger_historial
 AFTER INSERT OR UPDATE OR DELETE ON HistorialServicio
 FOR EACH ROW
 EXECUTE FUNCTION actualizarBitacora_historial();
+
 
 
