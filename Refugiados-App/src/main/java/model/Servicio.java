@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import model.enums.EstadoServicio;
 import model.enums.TipoServicio;
 
 @Data
@@ -14,6 +15,7 @@ import model.enums.TipoServicio;
 public class Servicio {
     private int id;
     private TipoServicio nombreServicio;
+    private Hogar hogar;
     private String descripcionServicio;
-    private String categoriaServicio;
+    private EstadoServicio estadoServicio;
 }

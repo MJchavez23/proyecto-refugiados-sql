@@ -16,10 +16,7 @@ import java.time.LocalDate;
 public class HistorialServicio {
     private int id;
     private Servicio servicio;
-    private Hogar hogar;
     private Personal personal;
     private LocalDate fechaServicio;
-    private EstadoServicio estadoServicio;
     private String descripcion;
-    private LocalDate ultimaModificacion;
 }

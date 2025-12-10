@@ -10,7 +10,7 @@ import java.time.LocalDate;
 //@Data
 //@NoArgsConstructor
 //@AllArgsConstructor
-//@Builder
+@Builder
 public class Personal {
     private int id;
     private Refugio refugio;

@@ -2,36 +2,68 @@ package repository;
 
 import lombok.AllArgsConstructor;
 import model.HistorialServicio;
+import model.Personal;
+import model.Servicio;
+import model.enums.TipoServicio;
 
 import java.sql.*;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @AllArgsConstructor
 public class HistorialServicioRepo {
 
     private final Connection connection;
 
-    public HistorialServicio guardarHistorialServicio(HistorialServicio historialServicio) throws SQLException {
-        String query = "INSERT INTO historial_servicio(id_servicio, id_hogar, id_personal, fecha_servicio, estado_servicio, descripcion, ultima_modificacion)" +
-                "VALUES (?, ?, ?, ?, ?, ?, ?)";
+    public void guardarHistorialServicio(HistorialServicio historialServicio) throws SQLException {
+        String query = "SELECT guardarHistorial(?, ?, ?, ?, ?, ?, ?)";
 
-        PreparedStatement preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-        PreparedStatement statementLleno = llenarStatement(preparedStatement, historialServicio);
-        statementLleno.executeUpdate();
-        try (ResultSet idGenerado = statementLleno.getGeneratedKeys()) {
-            historialServicio.setId(idGenerado.getInt(1));
-        }
-        return historialServicio;
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        llenarStatement(preparedStatement, historialServicio);
+        preparedStatement.execute();
     }
 
-    private PreparedStatement llenarStatement(PreparedStatement preparedStatement, HistorialServicio historialServicio) throws SQLException {
-        preparedStatement.setInt(1, 1); //Unico que servicio q se necesita
-        preparedStatement.setInt(2, historialServicio.getHogar().getId());
-        preparedStatement.setInt(3, 1); //Solo hay id de personal valida(no cambiar)
+    public List<HistorialServicio> buscarHistorialesPorServicio(String idServicio) throws SQLException {
+        String query = "SELECT * FROM historialPorServicioId(?)";
+
+        List<HistorialServicio>  historialServicios = new ArrayList<>();
+
+        PreparedStatement statement = connection.prepareStatement(query);
+        statement.setString(1, idServicio);
+        ResultSet resultSet = statement.executeQuery();
+        while (resultSet.next()) {
+            HistorialServicio hs = crearHistorial(resultSet);
+            historialServicios.add(hs);
+        }
+        return historialServicios;
+    }
+
+    private HistorialServicio crearHistorial(ResultSet resultSet) throws SQLException {
+        Servicio servicio = Servicio.builder()
+                .id(resultSet.getInt("servicio_id"))
+                .nombreServicio(TipoServicio.valueOf(resultSet.getString("nombre_servicio")))
+                .build();
+
+        Personal personal = Personal.builder()
+                .id(1)
+                .nombre("Admin")
+                .build();
+
+
+        return HistorialServicio.builder()
+                .personal(personal)
+                .servicio(servicio)
+                .descripcion(resultSet.getString("descripcion_historial_servicio"))
+                .fechaServicio(resultSet.getObject("fecha_registro", LocalDate.class))
+                .build();
+    }
+
+    private void llenarStatement(PreparedStatement preparedStatement, HistorialServicio historialServicio) throws SQLException {
+        preparedStatement.setInt(1, historialServicio.getServicio().getId()); //Unico que servicio q se necesita
+        preparedStatement.setInt(2, 1); //Solo hay id de personal valida(no cambiar)
+        preparedStatement.setString(3, historialServicio.getDescripcion());
         preparedStatement.setObject(4, Date.valueOf(historialServicio.getFechaServicio()));
-        preparedStatement.setString(5, historialServicio.getEstadoServicio().name());
-        preparedStatement.setString(6, historialServicio.getDescripcion());
-        preparedStatement.setObject(7, Date.valueOf(historialServicio.getUltimaModificacion()));
-        return preparedStatement;
     }
 
 
