@@ -12,8 +12,8 @@ a_telefono VARCHAR(10),
 a_estatus_legal VARCHAR(20),
 a_discapacidad VARCHAR(20), 
 a_enfermedad_cronica VARCHAR(20),
-a_embarazo BOOL,
-a_estado_empleo BOOL
+a_embarazo BOOLEAN,
+a_estado_empleo BOOLEAN
 ) RETURNS void AS 
 $$
 BEGIN 
@@ -76,7 +76,7 @@ $$
 DECLARE 
 BEGIN
 INSERT INTO Bitacora (
-usuario
+usuario,
 fecha,
 accion,
 tabla
@@ -94,6 +94,7 @@ CREATE TRIGGER trigger_individuo
 AFTER INSERT OR UPDATE OR DELETE ON Individuo
 FOR EACH ROW
 EXECUTE FUNCTION actualizarBitacora_individuo();
+
 
 
 
