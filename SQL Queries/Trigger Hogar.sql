@@ -55,6 +55,7 @@ CURRENT_DATE,
 TG_OP,
 'Hogar'
 );
+RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
 
@@ -62,3 +63,4 @@ CREATE TRIGGER trigger_hogar
 AFTER INSERT OR UPDATE OR DELETE ON Hogar
 FOR EACH ROW
 EXECUTE FUNCTION actualizarBitacora_hogar();
+
