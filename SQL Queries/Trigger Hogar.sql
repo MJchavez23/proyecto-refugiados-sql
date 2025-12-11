@@ -44,7 +44,7 @@ $$
 DECLARE 
 BEGIN
 INSERT INTO Bitacora (
-usuario
+usuario,
 fecha,
 accion,
 tabla
