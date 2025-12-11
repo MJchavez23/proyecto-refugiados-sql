@@ -52,6 +52,7 @@ CURRENT_DATE,
 TG_OP,
 'Vacunas'
 );
+RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
 
@@ -59,3 +60,4 @@ CREATE TRIGGER trigger_vacunas
 AFTER INSERT OR UPDATE OR DELETE ON Vacunas
 FOR EACH ROW
 EXECUTE FUNCTION actualizarBitacora_vacunas();
+
