@@ -42,24 +42,23 @@ $$ LANGUAGE plpgsql;
 
 --trigger para historial
 CREATE OR REPLACE FUNCTION actualizarBitacora_historial()
-RETURNS TRIGGER AS
+RRETURNS TRIGGER AS
 $$
 DECLARE 
 BEGIN
 INSERT INTO Bitacora (
-idbitacora,
-accion,
-tabla,
-fecha,
 usuario
+fecha,
+accion,
+tabla
 ) 
 VALUES(
-nextval(),
-TG_OP,
-'Historial_Servicios',
+CURRENT_USER,
 CURRENT_DATE,
-CURRENT_USER
+TG_OP,
+'Historial Servicios'
 );
+RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
 
@@ -67,3 +66,4 @@ CREATE TRIGGER trigger_historial
 AFTER INSERT OR UPDATE OR DELETE ON Historial_Servicios
 FOR EACH ROW
 EXECUTE FUNCTION actualizarBitacora_historial();
+
