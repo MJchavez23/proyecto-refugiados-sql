@@ -30,9 +30,9 @@ CREATE OR REPLACE FUNCTION borrar_vacunas(a_id_vacunas INTEGER)
 RETURNS void AS 
 $$
 BEGIN
-DELETE * FROM Vacunas WHERE id_vacunas = a_id_vacunas;
+DELETE FROM Vacunas WHERE id_vacunas = a_id_vacunas;
 END;
-$$ LANGUAGE plpgsql
+$$ LANGUAGE plpgsql;
 
 --trigger vacunas
 CREATE OR REPLACE FUNCTION actualizarBitacora_vacunas()
@@ -41,7 +41,7 @@ $$
 DECLARE 
 BEGIN
 INSERT INTO Bitacora (
-usuario
+usuario,
 fecha,
 accion,
 tabla
@@ -59,5 +59,3 @@ CREATE TRIGGER trigger_vacunas
 AFTER INSERT OR UPDATE OR DELETE ON Vacunas
 FOR EACH ROW
 EXECUTE FUNCTION actualizarBitacora_vacunas();
-
-
