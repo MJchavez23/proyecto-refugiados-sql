@@ -1,5 +1,3 @@
-
-
 CREATE OR REPLACE FUNCTION guardarIndividuo(
 	p_id_hogar INTEGER,
 	p_nombre VARCHAR,
@@ -178,11 +176,11 @@ BEGIN
         i.embarazada, 
         i.estado_empleo, 
         i.representante_hogar, 
-        h.id_hogar,          -- Se mapea a hog_id
+        h.id_hogar,          
         h.fecha_llegada_refugio, 
         h.nombre_hogar, 
-        r.id_refugio,        -- Se mapea a ref_id
-        r.nombre,            -- Se mapea a ref_nombre
+        r.id_refugio,        
+        r.nombre,
         r.ciudad, 
         r.pais, 
         r.referencia 
@@ -215,8 +213,8 @@ BEGIN
         r.ciudad, 
         r.pais, 
         r.referencia
-    FROM Hogar h 
-    JOIN Refugio r ON h.id_refugio = r.id_refugio 
+    FROM hogar h 
+    JOIN refugio r ON h.id_refugio = r.id_refugio 
     WHERE h.id_hogar = p_id_hogar;
 END;
 $$ LANGUAGE plpgsql;
@@ -244,11 +242,151 @@ BEGIN
         r.ciudad, 
         r.pais, 
         r.referencia
-    FROM Hogar h 
-    JOIN Refugio r ON h.id_refugio = r.id_refugio;
+    FROM hogar h 
+    JOIN refugio r ON h.id_refugio = r.id_refugio;
 END;
 $$ LANGUAGE plpgsql;
 
+CREATE OR REPLACE FUNCTION buscarTodosBitacoras()
+RETURNS TABLE (
+    usuario_resultado VARCHAR,
+    fecha_resultado TIMESTAMP,
+    accion_resultado VARCHAR,
+    tabla_resultado VARCHAR
+) 
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    RETURN QUERY 
+    SELECT 
+        b.usuario, 
+        b.fecha, 
+        b.accion, 
+        b.tabla
+    FROM 
+        bitacora b
+    ORDER BY 
+        b.fecha DESC;
+END;
+$$;
+
+CREATE OR REPLACE FUNCTION guardarHistorialServicio(
+    _id_servicio INTEGER,
+    _id_personal INTEGER,
+    _descripcion VARCHAR,
+    _fecha_registro DATE
+)
+RETURNS VOID 
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    INSERT INTO historial_servicios (
+        id_servicio, 
+        id_personal, 
+        descripcion, 
+        fecha_registro
+    )
+    VALUES (
+        _id_servicio, 
+        _id_personal, 
+        _descripcion, 
+        _fecha_registro
+    );
+END;
+$$;
+
+CREATE OR REPLACE FUNCTION historialPorServicioId(_id_servicio INTEGER)
+RETURNS TABLE (
+    id_historial_servicio INTEGER,
+    id_servicio INTEGER,        
+    id_personal INTEGER,
+    descripcion VARCHAR,        
+    fecha_registro DATE,
+
+    nombre_servicio VARCHAR,
+    id_hogar INTEGER,
+    descripcion_servicio VARCHAR,
+    estado_servicio VARCHAR
+) 
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    RETURN QUERY 
+    SELECT 
+        hs.id_historial_servicio,
+        hs.id_servicio,
+        hs.id_personal,
+        hs.descripcion,
+        hs.fecha_registro,
+
+        s.nombre_servicio,
+        s.id_hogar,
+        s.descripcion_servicio,
+        s.estado_servicio
+    FROM 
+        historial_servicios hs
+    INNER JOIN 
+        servicios s ON hs.id_servicio = s.id_servicio
+    WHERE 
+        hs.id_servicio = _id_servicio
+    ORDER BY 
+        hs.fecha_registro DESC;
+END;
+$$;
+
+CREATE OR REPLACE FUNCTION guardarServicio(
+    _nombre_servicio VARCHAR,
+    _id_hogar INTEGER,
+    _descripcion_servicio VARCHAR,
+    _estado_servicio VARCHAR
+)
+RETURNS VOID
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    INSERT INTO servicios (
+        nombre_servicio, 
+        id_hogar, 
+        descripcion_servicio, 
+        estado_servicio
+    )
+    VALUES (
+        _nombre_servicio, 
+        _id_hogar, 
+        _descripcion_servicio, 
+        _estado_servicio
+    );
+END;
+$$;
+
+CREATE OR REPLACE FUNCTION buscarPorNombreHogar(
+    _nombre_busqueda VARCHAR,
+    _id_hogar_busqueda INTEGER
+)
+RETURNS TABLE (
+    id_servicio INTEGER,
+    nombre_servicio VARCHAR,
+    id_hogar INTEGER,
+    descripcion_servicio VARCHAR,
+    estado_servicio VARCHAR
+)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    RETURN QUERY 
+    SELECT 
+        s.id_servicio,
+        s.nombre_servicio,
+        s.id_hogar,
+        s.descripcion_servicio,
+        s.estado_servicio
+    FROM 
+        servicios s
+    WHERE 
+        s.id_hogar = _id_hogar_busqueda
+        AND s.nombre_servicio ILIKE _nombre_busqueda;
+END;
+$$;
 
 
 
