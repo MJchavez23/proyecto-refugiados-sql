@@ -18,7 +18,7 @@ public class IndividuoRepo {
     private final Connection connection;
 
     public void guardarIndividuo(Individuo individuo) throws SQLException {
-        String query = "SELECT guardar_individuo(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; //Preparamos el query
+        String query = "SELECT guardarIndividuo(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; //Preparamos el query
 
         PreparedStatement statement = connection.prepareStatement(query);
         llenarStatement(statement, individuo); //Ingresa los valores del individuo dentro de statement

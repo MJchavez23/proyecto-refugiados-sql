@@ -2,6 +2,7 @@ package repository;
 
 import lombok.RequiredArgsConstructor;
 import model.Servicio;
+import model.enums.EstadoServicio;
 import model.enums.TipoServicio;
 
 import java.sql.Connection;
@@ -39,6 +40,9 @@ public class ServicioRepo {
     public Servicio crearServicio(ResultSet resultSet) throws SQLException {
         return Servicio.builder()
                 .id(resultSet.getInt("id_servicio"))
+                .nombreServicio(TipoServicio.valueOf(resultSet.getString("nombre_servicio")))
+                .descripcionServicio(resultSet.getString("descripcion_servicio"))
+                .estadoServicio(EstadoServicio.valueOf(resultSet.getString("estado_servicio")))
                 .build();
     }
 
@@ -46,6 +50,7 @@ public class ServicioRepo {
         statement.setString(1, servicio.getNombreServicio().name());
         statement.setInt(2, servicio.getHogar().getId());
         statement.setString(3, servicio.getDescripcionServicio());
+        statement.setString(4, servicio.getEstadoServicio().name());
     }
 
 }
