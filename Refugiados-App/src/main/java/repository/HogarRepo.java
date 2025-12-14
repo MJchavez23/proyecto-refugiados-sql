@@ -18,8 +18,7 @@ public class HogarRepo {
 
 
     public Optional<Hogar> buscarHogarPorId(Integer id) throws SQLException {
-        String query = "SELECT h.id_hogar, r.id_refugio AS ref_id_refugio, h.nombre_hogar, h.fecha_llegada_refugio, r.nombre AS nombre_refugio, r.ciudad, r.pais, r.referencia" +
-                "FROM hogar h JOIN refugio r ON h.id_refugio = r.id_refugio WHERE h.id_hogar = ?;";
+        String query = "SELECT * FROM obtener_detalle_hogar(?)";
 
         PreparedStatement statement = connection.prepareStatement(query);
 
@@ -37,8 +36,7 @@ public class HogarRepo {
 
     public List<Hogar> buscarTodosHogares() throws SQLException {
         List<Hogar> hogares = new ArrayList<>();
-        String query = "SELECT h.id_hogar, r.id_refugio AS ref_id_refugio, h.nombre_hogar, h.fecha_llegada_refugio, r.nombre AS nombre_refugio, r.ciudad, r.pais, r.referencia" +
-                "FROM hogar h JOIN refugio r ON h.id_refugio = r.id_refugio;";
+        String query = "SELECT * FROM obtener_todos_hogares_detallados()";
         PreparedStatement statement = connection.prepareStatement(query);
         ResultSet rs = statement.executeQuery();
         while(rs.next()){

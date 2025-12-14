@@ -17,7 +17,7 @@ public class HistorialServicioRepo {
     private final Connection connection;
 
     public void guardarHistorialServicio(HistorialServicio historialServicio) throws SQLException {
-        String query = "SELECT guardarHistorial(?, ?, ?, ?, ?, ?, ?)";
+        String query = "SELECT guardarHistorial(?, ?, ?, ?)";
 
         PreparedStatement preparedStatement = connection.prepareStatement(query);
         llenarStatement(preparedStatement, historialServicio);
@@ -41,8 +41,9 @@ public class HistorialServicioRepo {
 
     private HistorialServicio crearHistorial(ResultSet resultSet) throws SQLException {
         Servicio servicio = Servicio.builder()
-                .id(resultSet.getInt("servicio_id"))
+                .id(resultSet.getInt("id_servicio"))
                 .nombreServicio(TipoServicio.valueOf(resultSet.getString("nombre_servicio")))
+                .descripcionServicio(resultSet.getString("descripcion_servicio"))
                 .build();
 
         Personal personal = Personal.builder()
@@ -52,15 +53,16 @@ public class HistorialServicioRepo {
 
 
         return HistorialServicio.builder()
+                .id(resultSet.getInt("id_historial_servicio"))
                 .personal(personal)
                 .servicio(servicio)
-                .descripcion(resultSet.getString("descripcion_historial_servicio"))
+                .descripcion(resultSet.getString("descripcion"))
                 .fechaServicio(resultSet.getObject("fecha_registro", LocalDate.class))
                 .build();
     }
 
     private void llenarStatement(PreparedStatement preparedStatement, HistorialServicio historialServicio) throws SQLException {
-        preparedStatement.setInt(1, historialServicio.getServicio().getId()); //Unico que servicio q se necesita
+        preparedStatement.setInt(1, historialServicio.getServicio().getId()); //Unico servicio q se necesita
         preparedStatement.setInt(2, 1); //Solo hay id de personal valida(no cambiar)
         preparedStatement.setString(3, historialServicio.getDescripcion());
         preparedStatement.setObject(4, Date.valueOf(historialServicio.getFechaServicio()));
