@@ -306,7 +306,11 @@ RETURNS TABLE (
     nombre_servicio VARCHAR,
     id_hogar INTEGER,
     descripcion_servicio VARCHAR,
-    estado_servicio VARCHAR
+    estado_servicio VARCHAR,
+    
+    id_refugio INTEGER,
+    nombre_hogar VARCHAR,
+    fecha_llegada_refugio DATE
 ) 
 LANGUAGE plpgsql
 AS $$
@@ -322,11 +326,17 @@ BEGIN
         s.nombre_servicio,
         s.id_hogar,
         s.descripcion_servicio,
-        s.estado_servicio
+        s.estado_servicio,
+        
+        h.id_refugio,
+        h.nombre_hogar,
+        h.fecha_llegada_refugio
     FROM 
         historial_servicios hs
     INNER JOIN 
         servicios s ON hs.id_servicio = s.id_servicio
+    INNER JOIN
+        hogar h ON s.id_hogar = h.id_hogar
     WHERE 
         hs.id_servicio = _id_servicio
     ORDER BY 
