@@ -17,28 +17,28 @@ INSERT INTO Hogar (id_refugio, nombre_hogar, fecha_llegada_refugio) VALUES
 
 INSERT INTO Individuo (id_hogar, nombre, apellido, genero, fecha_nacimiento, pais_origen, idioma_principal, nivel_educativo, telefono, estatus_legal, tipo_documento, numero_documento, discapacidad, enfermedad_cronica, embarazada, estado_empleo, representante_hogar) VALUES
 -- Hogar 1 (Familia Pérez en Guayaquil)
-(1, 'Carlos', 'Pérez', 'Masculino', '1980-05-15', 'Venezuela', 'Español', 'Universitario', '+593987654321', 'Refugiado', 'Pasaporte', 'V12345678', NULL, 'Hipertensión', false, 'Desempleado', true),
-(1, 'María', 'Pérez', 'Femenino', '1985-08-22', 'Venezuela', 'Español', 'Secundaria', '+593987654322', 'Refugiado', 'Pasaporte', 'V12345679', NULL, NULL, true, 'Desempleada', false),
-(1, 'Pedro', 'Pérez', 'Masculino', '2015-03-10', 'Venezuela', 'Español', 'Primaria', NULL, 'Refugiado', 'Certificado Nac', 'CN-001', NULL, NULL, false, NULL, false),
+(1, 'Carlos', 'Pérez', 'MASCULINO', '1980-05-15', 'Venezuela', 'Español', 'EGB', '+593987654321', 'REFUGIADO', 'PASAPORTE', 'V12345678', NULL, 'Hipertensión', false, 'DESEMPLEADO', true),
+(1, 'María', 'Pérez', 'FEMENINO', '1985-08-22', 'Venezuela', 'Español', 'BACHILLERATO', '+593987654322', 'REFUGIADO', 'PASAPORTE', 'V12345679', NULL, NULL, true, 'DESEMPLEADO', false),
+(1, 'Pedro', 'Pérez', 'MASCULINO', '2015-03-10', 'Venezuela', 'Español', 'SUPERIOR', NULL, 'REFUGIADO', 'CEDULA_IDENTIDAD', 'CN-001', NULL, NULL, false, NULL, false),
 
 -- Hogar 2 (Familia Rodríguez en Bogotá)
-(2, 'Juan', 'Rodríguez', 'Masculino', '1978-11-30', 'Venezuela', 'Español', 'Universitario', '+57123456789', 'Solicitante', 'Pasaporte', 'V87654321', 'Visual', NULL, false, 'Temporal', true),
-(2, 'Ana', 'Rodríguez', 'Femenino', '1982-02-14', 'Venezuela', 'Español', 'Técnico', '+57123456790', 'Solicitante', 'Pasaporte', 'V87654322', NULL, 'Diabetes', false, 'Desempleada', false),
+(2, 'Juan', 'Rodríguez', 'MASCULINO', '1978-11-30', 'Venezuela', 'Español', 'SUPERIOR', '+57123456789', 'REFUGIADO', 'PASAPORTE', 'V87654321', 'Visual', NULL, false, 'Temporal', true),
+(2, 'Ana', 'Rodríguez', 'FEMENINO', '1982-02-14', 'Venezuela', 'Español', 'EGB', '+57123456790', 'REFUGIADO', 'PASAPORTE', 'V87654322', NULL, 'Diabetes', false, 'DESEMPLEADO', false),
 
 -- Hogar 3 (Familia Gómez en Lima)
-(3, 'Luis', 'Gómez', 'Masculino', '1990-07-08', 'Colombia', 'Español', 'Secundaria', '+511987654321', 'Regularizado', 'Cédula', 'COL-123456', NULL, NULL, false, 'Empleado', true),
-(3, 'Carmen', 'Gómez', 'Femenino', '1992-12-25', 'Colombia', 'Español', 'Universitaria', '+511987654322', 'Regularizado', 'Cédula', 'COL-123457', NULL, NULL, false, 'Empleada', false),
+(3, 'Luis', 'Gómez', 'MASCULINO', '1990-07-08', 'Colombia', 'Español', 'EGB', '+511987654321', 'REFUGIADO', 'CEDULA_IDENTIDAD', 'COL-123456', NULL, NULL, false, 'DEPENDENCIA', true),
+(3, 'Carmen', 'Gómez', 'FEMENINO', '1992-12-25', 'Colombia', 'Español', 'SUPERIOR', '+511987654322', 'REFUGIADO', 'CEDULA_IDENTIDAD', 'COL-123457', NULL, NULL, false, 'DEPENDENCIA', false),
 
 -- Hogar 4 (Familia Fernández en Buenos Aires)
-(4, 'Diego', 'Fernández', 'Masculino', '1988-04-18', 'Venezuela', 'Español', 'Técnico', '+541112345678', 'Refugiado', 'Pasaporte', 'V11223344', NULL, NULL, false, 'Desempleado', true),
-(4, 'Laura', 'Fernández', 'Femenino', '1991-09-05', 'Venezuela', 'Español', 'Universitaria', '+541112345679', 'Refugiado', 'Pasaporte', 'V11223345', NULL, 'Asma', false, 'Temporal', false),
+(4, 'Diego', 'Fernández', 'MASCULINO', '1988-04-18', 'Venezuela', 'Español', 'BACHILLERATO', '+541112345678', 'REFUGIADO', 'PASAPORTE', 'V11223344', NULL, NULL, false, 'DESEMPLEADO', true),
+(4, 'Laura', 'Fernández', 'FEMENINO', '1991-09-05', 'Venezuela', 'Español', 'SUPERIOR', '+541112345679', 'REFUGIADO', 'PASAPORTE', 'V11223345', NULL, 'Asma', false, 'Temporal', false),
 
 -- Hogar 5 (Familia López en Quito)
-(5, 'Roberto', 'López', 'Masculino', '1975-01-20', 'Colombia', 'Español', 'Universitario', '+593912345678', 'Solicitante', 'Pasaporte', 'COL-987654', 'Motriz', NULL, false, 'Desempleado', true),
-(5, 'Sofía', 'López', 'Femenino', '2018-06-30', 'Colombia', 'Español', NULL, NULL, 'Solicitante', 'Certificado Nac', 'CN-002', NULL, NULL, false, NULL, false),
+(5, 'Roberto', 'López', 'MASCULINO', '1975-01-20', 'Colombia', 'Español', 'SUPERIOR', '+593912345678', 'REFUGIADO', 'PASAPORTE', 'COL-987654', 'Motriz', NULL, false, 'DESEMPLEADO', true),
+(5, 'Sofía', 'López', 'FEMENINO', '2018-06-30', 'Colombia', 'Español', 'SUPERIOR', NULL, 'REFUGIADO', 'LICENCIA_CONDUCIR', 'CN-002', NULL, NULL, false, 'DEPENDENCIA', false),
 
 -- Hogar 6 (Familia Martínez en Cali)
-(6, 'Miguel', 'Martínez', 'Masculino', '1983-03-12', 'Venezuela', 'Español', 'Secundaria', '+57212345678', 'Regularizado', 'Pasaporte', 'V55667788', NULL, NULL, false, 'Empleado', true);
+(6, 'Miguel', 'Martínez', 'MASCULINO', '1983-03-12', 'Venezuela', 'Español', 'EGB', '+57212345678', 'REFUGIADO', 'LICENCIA_CONDUCIR', 'V55667788', NULL, NULL, false, 'DEPENDENCIA', true);
 
 INSERT INTO Alojamiento (id_refugio, id_hogar, fecha_ingreso, fecha_salida) VALUES
 (1, 1, '2023-03-15', NULL),
@@ -49,22 +49,19 @@ INSERT INTO Alojamiento (id_refugio, id_hogar, fecha_ingreso, fecha_salida) VALU
 (6, 6, '2023-08-05', NULL);
 
 INSERT INTO Servicios (nombre_servicio, id_hogar, descripcion_servicio, estado_servicio) VALUES
-('Asesoría Legal', 1, 'Proceso de solicitud de refugio', 'En proceso'),
-('Atención Médica', 1, 'Control prenatal para María Pérez', 'Completado'),
-('Clases de Idiomas', 2, 'Curso de portugués básico', 'Activo'),
-('Orientación Laboral', 3, 'Búsqueda de empleo formal', 'Activo'),
-('Apoyo Psicológico', 4, 'Sesiones de terapia semanal', 'Activo'),
-('Ayuda Alimentaria', 5, 'Entrega de canasta básica mensual', 'Pendiente'),
-('Curso de Capacitación', 6, 'Taller de informática básica', 'Completado'),
-('Asistencia Educativa', 2, 'Inscripción escolar para niños', 'En proceso');
+('RESIDENCIA_TEMPORAL', 1, 'Proceso de solicitud de refugio', 'COMPLETADO'),
+('RESIDENCIA_TEMPORAL', 1, 'Control prenatal para María Pérez', 'CANCELADO'),
+('CLASES_IDIOMAS', 2, 'Curso de portugués básico', 'EN_PROGESO'),
+('ORIENTACION_LABORAL', 3, 'Búsqueda de empleo formal', 'PENDIENTE'),
+('APOYO_PSICOLOGICO', 4, 'Sesiones de terapia semanal', 'PENDIENTE')
 
 INSERT INTO Personal (nombre, apellido, fecha_nacimiento, genero, id_refugio) VALUES
-('Ana', 'García', '1990-04-15', 'Femenino', 1),
-('Carlos', 'Mendoza', '1985-07-22', 'Masculino', 2),
-('Lucía', 'Torres', '1992-11-30', 'Femenino', 3),
-('Ricardo', 'Fernández', '1988-03-18', 'Masculino', 4),
-('Patricia', 'Vargas', '1995-09-10', 'Femenino', 5),
-('Andrés', 'Silva', '1980-12-05', 'Masculino', 6);
+('Ana', 'García', '1990-04-15', 'FEMENINO', 1),
+('Carlos', 'Mendoza', '1985-07-22', 'MASCULINO', 2),
+('Lucía', 'Torres', '1992-11-30', 'FEMENINO', 3),
+('Ricardo', 'Fernández', '1988-03-18', 'MASCULINO', 4),
+('Patricia', 'Vargas', '1995-09-10', 'FEMENINO', 5),
+('Andrés', 'Silva', '1980-12-05', 'MASCULINO', 6);
 
 INSERT INTO Historial_Servicios (id_servicio, id_personal, descripcion, fecha_registro) VALUES
 (1, 1, 'Inició trámite de refugio', '2023-03-20'),
