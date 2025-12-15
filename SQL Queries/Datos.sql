@@ -53,7 +53,7 @@ INSERT INTO Servicios (nombre_servicio, id_hogar, descripcion_servicio, estado_s
 ('RESIDENCIA_TEMPORAL', 1, 'Control prenatal para María Pérez', 'CANCELADO'),
 ('CLASES_IDIOMAS', 2, 'Curso de portugués básico', 'EN_PROGESO'),
 ('ORIENTACION_LABORAL', 3, 'Búsqueda de empleo formal', 'PENDIENTE'),
-('APOYO_PSICOLOGICO', 4, 'Sesiones de terapia semanal', 'PENDIENTE')
+('APOYO_PSICOLOGICO', 4, 'Sesiones de terapia semanal', 'PENDIENTE');
 
 INSERT INTO Personal (nombre, apellido, fecha_nacimiento, genero, id_refugio) VALUES
 ('Ana', 'García', '1990-04-15', 'FEMENINO', 1),
