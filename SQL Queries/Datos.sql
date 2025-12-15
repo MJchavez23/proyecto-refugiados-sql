@@ -19,10 +19,10 @@ INSERT INTO Individuo (id_hogar, nombre, apellido, genero, fecha_nacimiento, pai
 -- Hogar 1 (Familia Pérez en Guayaquil)
 (1, 'Carlos', 'Pérez', 'MASCULINO', '1980-05-15', 'Venezuela', 'Español', 'EGB', '+593987654321', 'REFUGIADO', 'PASAPORTE', 'V12345678', NULL, 'Hipertensión', false, 'DESEMPLEADO', true),
 (1, 'María', 'Pérez', 'FEMENINO', '1985-08-22', 'Venezuela', 'Español', 'BACHILLERATO', '+593987654322', 'REFUGIADO', 'PASAPORTE', 'V12345679', NULL, NULL, true, 'DESEMPLEADO', false),
-(1, 'Pedro', 'Pérez', 'MASCULINO', '2015-03-10', 'Venezuela', 'Español', 'SUPERIOR', NULL, 'REFUGIADO', 'CEDULA_IDENTIDAD', 'CN-001', NULL, NULL, false, NULL, false),
+(1, 'Pedro', 'Pérez', 'MASCULINO', '2015-03-10', 'Venezuela', 'Español', 'SUPERIOR', NULL, 'REFUGIADO', 'CEDULA_IDENTIDAD', 'CN-001', NULL, NULL, false, 'DESEMPLEADO', false),
 
 -- Hogar 2 (Familia Rodríguez en Bogotá)
-(2, 'Juan', 'Rodríguez', 'MASCULINO', '1978-11-30', 'Venezuela', 'Español', 'SUPERIOR', '+57123456789', 'REFUGIADO', 'PASAPORTE', 'V87654321', 'Visual', NULL, false, 'Temporal', true),
+(2, 'Juan', 'Rodríguez', 'MASCULINO', '1978-11-30', 'Venezuela', 'Español', 'SUPERIOR', '+57123456789', 'REFUGIADO', 'PASAPORTE', 'V87654321', 'Visual', NULL, false, 'DESEMPLEADO', true),
 (2, 'Ana', 'Rodríguez', 'FEMENINO', '1982-02-14', 'Venezuela', 'Español', 'EGB', '+57123456790', 'REFUGIADO', 'PASAPORTE', 'V87654322', NULL, 'Diabetes', false, 'DESEMPLEADO', false),
 
 -- Hogar 3 (Familia Gómez en Lima)
@@ -31,7 +31,7 @@ INSERT INTO Individuo (id_hogar, nombre, apellido, genero, fecha_nacimiento, pai
 
 -- Hogar 4 (Familia Fernández en Buenos Aires)
 (4, 'Diego', 'Fernández', 'MASCULINO', '1988-04-18', 'Venezuela', 'Español', 'BACHILLERATO', '+541112345678', 'REFUGIADO', 'PASAPORTE', 'V11223344', NULL, NULL, false, 'DESEMPLEADO', true),
-(4, 'Laura', 'Fernández', 'FEMENINO', '1991-09-05', 'Venezuela', 'Español', 'SUPERIOR', '+541112345679', 'REFUGIADO', 'PASAPORTE', 'V11223345', NULL, 'Asma', false, 'Temporal', false),
+(4, 'Laura', 'Fernández', 'FEMENINO', '1991-09-05', 'Venezuela', 'Español', 'SUPERIOR', '+541112345679', 'REFUGIADO', 'PASAPORTE', 'V11223345', NULL, 'Asma', false, 'DESEMPLEADO', false),
 
 -- Hogar 5 (Familia López en Quito)
 (5, 'Roberto', 'López', 'MASCULINO', '1975-01-20', 'Colombia', 'Español', 'SUPERIOR', '+593912345678', 'REFUGIADO', 'PASAPORTE', 'COL-987654', 'Motriz', NULL, false, 'DESEMPLEADO', true),
