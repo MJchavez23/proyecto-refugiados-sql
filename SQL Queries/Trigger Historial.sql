@@ -47,7 +47,7 @@ $$
 DECLARE 
 BEGIN
 INSERT INTO Bitacora (
-usuario
+usuario,
 fecha,
 accion,
 tabla
@@ -66,5 +66,6 @@ CREATE TRIGGER trigger_historial
 AFTER INSERT OR UPDATE OR DELETE ON Historial_Servicios
 FOR EACH ROW
 EXECUTE FUNCTION actualizarBitacora_historial();
+
 
 
