@@ -19,6 +19,11 @@ public class ServiciosServiceImpl implements ServiciosService {
         servicioRepo.guardarServicio(servicio);
     }
 
+    @Override
+    public Optional<Servicio> buscarServicioPorNumeroDocumento(String numeroDocumento) throws SQLException {
+        return servicioRepo.buscarServicioPorNumeroDocumento(numeroDocumento);
+    }
+
     private void validarUnico(String nombre, int idHogar) throws SQLException {
         var r = servicioRepo.buscarServicioPorNombreYHogar(nombre, idHogar);
         if(r.isPresent()) {

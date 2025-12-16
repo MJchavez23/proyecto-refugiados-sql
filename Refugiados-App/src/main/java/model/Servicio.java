@@ -13,7 +13,7 @@ import model.enums.TipoServicio;
 @AllArgsConstructor
 @Builder
 public class Servicio {
-    private int id;
+    private Integer id;
     private TipoServicio nombreServicio;
     private Hogar hogar;
     private String descripcionServicio;

@@ -7,12 +7,12 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
-//@Data
-//@NoArgsConstructor
-//@AllArgsConstructor
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 public class Personal {
-    private int id;
+    private Integer id;
     private Refugio refugio;
     private String nombre;
     private String apellido;

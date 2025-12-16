@@ -32,10 +32,10 @@ public class BitacoraRepo {
 
     private Bitacora crearBitacora(ResultSet resultSet) throws SQLException {
         return Bitacora.builder()
-                .usuario(resultSet.getString("usuario"))
-                .fecha(resultSet.getObject("fecha", LocalDate.class))
-                .accion(resultSet.getString("accion"))
-                .tabla(resultSet.getString("tabla"))
+                .usuario(resultSet.getString("usuario_resultado"))
+                .fecha(resultSet.getObject("fecha_resultado", LocalDate.class))
+                .accion(resultSet.getString("accion_resultado"))
+                .tabla(resultSet.getString("tabla_resultado"))
                 .build();
     }
 }

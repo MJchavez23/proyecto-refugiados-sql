@@ -14,7 +14,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Builder
 public class HistorialServicio {
-    private int id;
+    private Integer id;
     private Servicio servicio;
     private Personal personal;
     private LocalDate fechaServicio;

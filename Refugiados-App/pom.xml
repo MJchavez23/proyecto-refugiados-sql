@@ -32,5 +32,11 @@
             <artifactId>poi-ooxml</artifactId>
             <version>5.5.1</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.toedter/jcalendar -->
+        <dependency>
+            <groupId>com.toedter</groupId>
+            <artifactId>jcalendar</artifactId>
+            <version>1.4</version>
+        </dependency>
     </dependencies>
 </project>

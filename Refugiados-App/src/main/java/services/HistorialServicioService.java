@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface HistorialServicioService {
     void crearHistorialServicio(HistorialServicio historialServicio) throws SQLException;
-    List<HistorialServicio> buscarHistorialesPorServicio(String idServicio) throws SQLException;
+    List<HistorialServicio> buscarHistorialesPorNumeroDocumento(String numeroDocumento) throws SQLException;
 }

@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class Refugio {
-    private int id;
+    private Integer id;
     private String nombre;
     private String ciudad;
     private String pais;

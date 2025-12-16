@@ -7,7 +7,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum EstadoServicio {
     PENDIENTE("Pendiente"),
-    EN_PROGESO("En Progreso"),
+    EN_PROGRESO("En Progreso"),
     CANCELADO("Cancelado"),
     COMPLETADO("Completado");
 

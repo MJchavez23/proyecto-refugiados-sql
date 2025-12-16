@@ -8,7 +8,6 @@ import services.HistorialServicioService;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 public class HistorialServicioServiceImpl implements HistorialServicioService {
@@ -22,8 +21,8 @@ public class HistorialServicioServiceImpl implements HistorialServicioService {
     }
 
     @Override
-    public List<HistorialServicio> buscarHistorialesPorServicio(String idServicio) throws SQLException {
-        return historialServicioRepo.buscarHistorialesPorServicio(idServicio);
+    public List<HistorialServicio> buscarHistorialesPorNumeroDocumento(String numeroDocuemento) throws SQLException {
+        return historialServicioRepo.buscarHistorialesPorNumeroDocumento(numeroDocuemento);
     }
 
     private void validarGuardado(HistorialServicio historialServicio) {

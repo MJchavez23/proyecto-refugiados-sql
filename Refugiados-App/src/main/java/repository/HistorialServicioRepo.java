@@ -2,8 +2,10 @@ package repository;
 
 import lombok.AllArgsConstructor;
 import model.HistorialServicio;
+import model.Hogar;
 import model.Personal;
 import model.Servicio;
+import model.enums.EstadoServicio;
 import model.enums.TipoServicio;
 
 import java.sql.*;
@@ -17,20 +19,20 @@ public class HistorialServicioRepo {
     private final Connection connection;
 
     public void guardarHistorialServicio(HistorialServicio historialServicio) throws SQLException {
-        String query = "SELECT guardarHistorial(?, ?, ?, ?)";
+        String query = "SELECT guardarHistorialServicio(?, ?, ?, ?)";
 
         PreparedStatement preparedStatement = connection.prepareStatement(query);
         llenarStatement(preparedStatement, historialServicio);
         preparedStatement.execute();
     }
 
-    public List<HistorialServicio> buscarHistorialesPorServicio(String idServicio) throws SQLException {
-        String query = "SELECT * FROM historialPorServicioId(?)";
+    public List<HistorialServicio> buscarHistorialesPorNumeroDocumento(String numeroDocumento) throws SQLException {
+        String query = "SELECT * FROM historialPorDocumento(?)";
 
         List<HistorialServicio>  historialServicios = new ArrayList<>();
 
         PreparedStatement statement = connection.prepareStatement(query);
-        statement.setString(1, idServicio);
+        statement.setString(1, numeroDocumento);
         ResultSet resultSet = statement.executeQuery();
         while (resultSet.next()) {
             HistorialServicio hs = crearHistorial(resultSet);
@@ -40,10 +42,19 @@ public class HistorialServicioRepo {
     }
 
     private HistorialServicio crearHistorial(ResultSet resultSet) throws SQLException {
+
+        Hogar hogar =  Hogar.builder()
+                .id(resultSet.getInt("id_hogar"))
+                .nombreHogar(resultSet.getString("nombre_hogar"))
+                .fechaLlegada(resultSet.getObject("fecha_llegada_refugio", LocalDate.class))
+                .build();
+
         Servicio servicio = Servicio.builder()
                 .id(resultSet.getInt("id_servicio"))
                 .nombreServicio(TipoServicio.valueOf(resultSet.getString("nombre_servicio")))
+                .hogar(hogar)
                 .descripcionServicio(resultSet.getString("descripcion_servicio"))
+                .estadoServicio(EstadoServicio.valueOf(resultSet.getString("estado_servicio")))
                 .build();
 
         Personal personal = Personal.builder()

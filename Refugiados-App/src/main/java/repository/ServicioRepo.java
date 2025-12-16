@@ -1,6 +1,7 @@
 package repository;
 
 import lombok.RequiredArgsConstructor;
+import model.Hogar;
 import model.Servicio;
 import model.enums.EstadoServicio;
 import model.enums.TipoServicio;
@@ -23,9 +24,20 @@ public class ServicioRepo {
         statement.execute();
     }
 
+    public Optional<Servicio> buscarServicioPorNumeroDocumento(String numeroDocumento) throws SQLException {
+        String query = "SELECT * FROM buscarPorNumeroDocumento(?)";
+        PreparedStatement statement = connection.prepareStatement(query);
+        statement.setString(1, numeroDocumento);
+        ResultSet resultSet = statement.executeQuery();
+        if (resultSet.next()) {
+            Servicio servicio = crearServicio(resultSet);
+            return Optional.of(servicio);
+        }
+        return Optional.empty();
+    }
 
     public Optional<Servicio> buscarServicioPorNombreYHogar(String nombre, int idHogar) throws SQLException {
-        String query = "SELECT buscarPorNombreHogar(?, ?)";
+        String query = "SELECT * FROM buscarPorNombreHogar(?, ?)";
         PreparedStatement statement = connection.prepareStatement(query);
         statement.setString(1, nombre);
         statement.setInt(2, idHogar);
@@ -43,6 +55,7 @@ public class ServicioRepo {
                 .nombreServicio(TipoServicio.valueOf(resultSet.getString("nombre_servicio")))
                 .descripcionServicio(resultSet.getString("descripcion_servicio"))
                 .estadoServicio(EstadoServicio.valueOf(resultSet.getString("estado_servicio")))
+                .hogar(Hogar.builder().id(resultSet.getInt("id_hogar")).build())
                 .build();
     }
 
@@ -52,5 +65,6 @@ public class ServicioRepo {
         statement.setString(3, servicio.getDescripcionServicio());
         statement.setString(4, servicio.getEstadoServicio().name());
     }
+
 
 }

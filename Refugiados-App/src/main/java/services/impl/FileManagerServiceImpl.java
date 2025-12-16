@@ -4,14 +4,11 @@ import lombok.RequiredArgsConstructor;
 import model.Hogar;
 import model.Individuo;
 import model.enums.*;
-import org.apache.commons.compress.archivers.dump.DumpArchiveConstants;
 import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import services.FileManagerService;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -22,13 +19,9 @@ public class FileManagerServiceImpl implements FileManagerService {
 
     @Override
     public List<Individuo> extraerIndividuos(File file) throws IOException {
-        List<Individuo> inds = new ArrayList<Individuo>();
-
-        //Da formato a cualquier tipo de celda
-        DataFormatter formatter = new DataFormatter();
+        List<Individuo> inds = new ArrayList<>();
 
         FileInputStream in = new FileInputStream(file);
-
         //Nos ayuda a detectar si es un .xls(Viejo Formato) o .xlsx(Nuevo Formato)
         //Y da formato que java pueda entender
         Workbook workbook = WorkbookFactory.create(in);
@@ -41,6 +34,16 @@ public class FileManagerServiceImpl implements FileManagerService {
             if (fila.getRowNum() == 1) {
                 continue;
             }
+            Individuo ind = crearIndividuo(fila);
+            inds.add(ind);
+        }
+
+        return inds;
+    }
+
+    private Individuo crearIndividuo(Row fila) {
+            //Da formato a cualquier tipo de celda
+            DataFormatter formatter = new DataFormatter();
             int id_hogar = Integer.parseInt(formatter.formatCellValue(fila.getCell(0)));
             String nombre  = formatter.formatCellValue(fila.getCell(1));
             String apellido = formatter.formatCellValue(fila.getCell(2));
@@ -58,7 +61,7 @@ public class FileManagerServiceImpl implements FileManagerService {
             Boolean embarazada =  Boolean.parseBoolean(formatter.formatCellValue(fila.getCell(14)));
             EstadoEmpleo estadoEmpleo =  EstadoEmpleo.valueOf(formatter.formatCellValue(fila.getCell(15)));
             Boolean representanteHogar =   Boolean.parseBoolean(formatter.formatCellValue(fila.getCell(16)));
-            Individuo ind = Individuo.builder()
+            return Individuo.builder()
                     .hogar(Hogar.builder().id(id_hogar).build())
                     .nombre(nombre)
                     .apellido(apellido)
@@ -78,9 +81,9 @@ public class FileManagerServiceImpl implements FileManagerService {
                     .estadoEmpleo(estadoEmpleo)
                     .representanteHogar(representanteHogar)
                     .build();
-            inds.add(ind);
-        }
-
-        return inds;
     }
+
+
+
+
 }

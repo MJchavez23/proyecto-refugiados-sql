@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Builder
 public class Individuo {
-    private int id;
+    private Integer id;
     private Hogar hogar;
     private String nombre;
     private String apellido;
