@@ -295,7 +295,7 @@ BEGIN
 END;
 $$;
 
-CREATE OR REPLACE FUNCTION historialPorServicioId(_id_servicio INTEGER)
+CREATE OR REPLACE FUNCTION historialPorDocumento(_numero_documento VARCHAR)
 RETURNS TABLE (
     id_historial_servicio INTEGER,
     id_servicio INTEGER,        
@@ -337,8 +337,11 @@ BEGIN
         servicios s ON hs.id_servicio = s.id_servicio
     INNER JOIN
         hogar h ON s.id_hogar = h.id_hogar
+    INNER JOIN
+        individuo i ON h.id_hogar = i.id_hogar 
     WHERE 
-        hs.id_servicio = _id_servicio
+        i.numero_documento = _numero_documento
+        AND s.estado_servicio = 'EN_PROGRESO' 
     ORDER BY 
         hs.fecha_registro DESC;
 END;
@@ -424,7 +427,7 @@ BEGIN
         individuo i ON h.id_hogar = i.id_hogar
     WHERE 
         i.numero_documento = _numero_documento
-        AND s.estado_servicio ILIKE 'EN_PROGESO';
+        AND s.estado_servicio ILIKE 'EN_PROGRESO';
 END;
 $$;
 
