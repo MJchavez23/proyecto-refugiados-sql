@@ -55,7 +55,7 @@ RETURNS void AS $$
 		p_estado_empleo,
 		p_representante_hogar);
 	END
-$$LANGUAGE plpgsql
+$$ LANGUAGE plpgsql;
 
 
 CREATE OR REPLACE FUNCTION buscarIndividuoPorNumeroDeDocumento(numeroDocumentoBuscar VARCHAR)
