@@ -23,8 +23,11 @@ public class MainApplication {
                 HogarRepo hogarRepo = new HogarRepo(connection);
                 HogarService hogarService = new HogarServiceImpl(hogarRepo);
 
+                FileManagerService fileManagerService = new FileManagerServiceImpl();
+                RefugioRepo refugioRepo = new RefugioRepo(connection);
+                RefugioService refugioService = new RefugioServiceImpl(refugioRepo);
                 VentanaRegistroIndividuo ventanaRegistroIndividuo = new VentanaRegistroIndividuo(ventanaPrincipal);
-                IndividuoController individuoController = new IndividuoController(individuoService, ventanaRegistroIndividuo, hogarService);
+                IndividuoController individuoController = new IndividuoController(fileManagerService,individuoService, ventanaRegistroIndividuo, hogarService, refugioService);
                 individuoController.configurarListener();
 
                 ventanaPrincipal.agregarPanel(ventanaRegistroIndividuo, VentanaPrincipal.NOMBRE_REGISTRO);
@@ -36,10 +39,9 @@ public class MainApplication {
                 ventanaPrincipal.agregarPanel(ventanaBusqueda, VentanaPrincipal.NOMBRE_BUSQUEDA);
 
                 BitacoraRepo bitacoraRepo = new BitacoraRepo(connection);
-                FileManagerService fileManagerService = new FileManagerServiceImpl();
                 BitacoraService bitacoraService = new BitacoraServiceImpl(bitacoraRepo);
                 BitacoraPanel bitacoraPanel = new BitacoraPanel(ventanaPrincipal);
-                BitacoraController bitacoraController = new BitacoraController(fileManagerService, bitacoraPanel, individuoService,  bitacoraService);
+                BitacoraController bitacoraController = new BitacoraController(bitacoraPanel,  bitacoraService);
                 bitacoraController.configurarListener();
 
                 ventanaPrincipal.agregarPanel(bitacoraPanel, VentanaPrincipal.NOMBRE_BITACORA);

@@ -14,7 +14,6 @@ public class BitacoraPanel extends JPanel {
     private VentanaPrincipal principal;
     private JTable tablaBitacora;
     private DefaultTableModel tableModel;
-    private JButton btnSubirArchivo;
     private JButton btnVolver;
 
     public BitacoraPanel(VentanaPrincipal principal) {
@@ -29,17 +28,17 @@ public class BitacoraPanel extends JPanel {
 
     private void inicializarControlesSuperiores() {
         JPanel panelControles = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
-        panelControles.setBorder(BorderFactory.createTitledBorder("Acciones de Bitácora"));
+        panelControles.setBorder(BorderFactory.createTitledBorder("Navegación"));
 
         btnVolver = new JButton("Volver al Menú");
-        btnSubirArchivo = new JButton("Subir Archivo (.xlsx)");
+        // ESTILO BOTÓN
+        btnVolver.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        btnVolver.setFocusPainted(false);
 
         panelControles.add(btnVolver);
-        panelControles.add(btnSubirArchivo);
 
         add(panelControles, BorderLayout.NORTH);
     }
-
 
     private void inicializarTablaCentral() {
         String[] columnNames = {"Fecha", "Accion", "Usuario", "Tabla"};
@@ -55,7 +54,7 @@ public class BitacoraPanel extends JPanel {
         tablaBitacora.setFillsViewportHeight(true);
         tablaBitacora.setRowHeight(25);
         tablaBitacora.getTableHeader().setReorderingAllowed(false);
-
+        tablaBitacora.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 
         JScrollPane scrollPane = new JScrollPane(tablaBitacora);
         scrollPane.setBorder(BorderFactory.createTitledBorder("Registros del Sistema"));
@@ -77,22 +76,6 @@ public class BitacoraPanel extends JPanel {
 
     public void agregarListener(ActionListener evento) {
         btnVolver.addActionListener(evento);
-        btnSubirArchivo.addActionListener(evento);
-    }
-
-    public File extraerArchivo() {
-        JFileChooser fileChooser = new JFileChooser();
-        int returnValue = fileChooser.showOpenDialog(this);
-
-        if (returnValue == JFileChooser.APPROVE_OPTION) {
-            File selectedFile = fileChooser.getSelectedFile();
-            String fileName = selectedFile.getName();
-
-            if (fileName.toLowerCase().endsWith(".xlsx")) {
-                return selectedFile;
-            }
-        }
-        return null;
     }
 
     public void agregarFila(Object[] datos) {
@@ -101,5 +84,9 @@ public class BitacoraPanel extends JPanel {
 
     public void limpiarTabla() {
         tableModel.setRowCount(0);
+    }
+
+    public void mostrarExito(String mensaje) {
+        JOptionPane.showMessageDialog(this, mensaje, "Exito", JOptionPane.INFORMATION_MESSAGE);
     }
 }

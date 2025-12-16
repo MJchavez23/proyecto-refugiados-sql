@@ -3,16 +3,22 @@ package controller;
 import lombok.RequiredArgsConstructor;
 import model.Hogar;
 import model.Individuo;
+import model.Refugio;
 import model.enums.*;
 import repository.IndividuoRepo;
+import services.FileManagerService;
 import services.HogarService;
 import services.IndividuoService;
+import services.RefugioService;
 import services.impl.IndividuoServiceImpl;
 import view.VentanaPrincipal;
 import view.VentanaRegistroIndividuo;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.Date;
@@ -22,9 +28,11 @@ import java.util.Map;
 
 @RequiredArgsConstructor
 public class IndividuoController implements ActionListener {
+    private final FileManagerService fileManagerService;
     private final IndividuoService service;
     private final VentanaRegistroIndividuo view;
     private final HogarService hogarService;
+    private final RefugioService refugioService;
 
 
     public void iniciar(){
@@ -67,10 +75,34 @@ public class IndividuoController implements ActionListener {
             view.volverMenuPrincipal();
 
 
-        }else if (source == view.getBtnVolver()){
+        }
+        if (source == view.getBtnSubirArchivo()){
+            File archivo = view.extraerArchivo();
+            if (archivo == null){
+                return;
+            }
+            try {
+                List<Refugio> refugios = fileManagerService.extraerRefugios(archivo);
+                refugioService.guardarRefugios(refugios);
+
+                List<Hogar> hogares = fileManagerService.extraerHogares(archivo);
+                hogarService.guardarTodos(hogares);
+
+                List<Individuo> individuos = fileManagerService.extraerIndividuos(archivo);
+                service.crearVariosIndividuos(individuos);
+
+                view.mostrarExito("Todo Guardado correctamente");
+
+            } catch (IOException | SQLException ex) {
+                view.mostrarError("Error: " + ex.getMessage());
+            }
+        }
+        if (source == view.getBtnVolver()){
             view.volverMenuPrincipal();
         }
     }
+
+
 
     private Individuo crearIndividuo(List<String> info){
         return Individuo.builder()

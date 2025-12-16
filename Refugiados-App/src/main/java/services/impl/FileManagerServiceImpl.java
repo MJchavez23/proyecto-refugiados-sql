@@ -3,6 +3,7 @@ package services.impl;
 import lombok.RequiredArgsConstructor;
 import model.Hogar;
 import model.Individuo;
+import model.Refugio;
 import model.enums.*;
 import org.apache.poi.ss.usermodel.*;
 import services.FileManagerService;
@@ -26,12 +27,12 @@ public class FileManagerServiceImpl implements FileManagerService {
         //Y da formato que java pueda entender
         Workbook workbook = WorkbookFactory.create(in);
 
-        //Obtenemos la primera hora
+        //Obtenemos la primera hoja
         Sheet sheet = workbook.getSheetAt(0);
 
         //Vamos por cada fila extrayendo informacion(Pasamos la primera fila que son los encabezados)
         for (Row fila : sheet) {
-            if (fila.getRowNum() == 1) {
+            if (fila.getRowNum() == 0) {
                 continue;
             }
             Individuo ind = crearIndividuo(fila);
@@ -39,6 +40,78 @@ public class FileManagerServiceImpl implements FileManagerService {
         }
 
         return inds;
+    }
+
+    @Override
+    public List<Refugio> extraerRefugios(File file) throws IOException {
+        List<Refugio> refugios = new ArrayList<>();
+
+        FileInputStream in = new FileInputStream(file);
+
+        Workbook workbook = WorkbookFactory.create(in);
+
+        Sheet sheet = workbook.getSheetAt(1);
+
+        for (Row fila : sheet) {
+            if (fila.getRowNum() == 0) {
+                continue;
+            }
+            Refugio ref = crearRefugio(fila);
+            refugios.add(ref);
+        }
+        return refugios;
+    }
+
+
+
+    @Override
+    public List<Hogar> extraerHogares(File file) throws IOException {
+        List<Hogar> hogares = new ArrayList<>();
+
+        FileInputStream in = new FileInputStream(file);
+
+        Workbook workbook = WorkbookFactory.create(in);
+
+        Sheet sheet = workbook.getSheetAt(2);
+
+        for (Row fila : sheet) {
+            if (fila.getRowNum() == 0) {
+                continue;
+            }
+            Hogar ref = crearHogar(fila);
+            hogares.add(ref);
+        }
+        return hogares;
+    }
+
+    private Hogar crearHogar(Row fila) {
+        DataFormatter formatter = new DataFormatter();
+
+        int idRefugio = Integer.parseInt(formatter.formatCellValue(fila.getCell(0)));
+        String nombreHogar = formatter.formatCellValue(fila.getCell(1));
+        LocalDate fechaLlegada = LocalDate.parse(formatter.formatCellValue(fila.getCell(2)));
+
+        return Hogar.builder()
+                .refugio(Refugio.builder().id(idRefugio).build())
+                .nombreHogar(nombreHogar)
+                .fechaLlegada(fechaLlegada)
+                .build();
+    }
+
+    private Refugio crearRefugio(Row fila) throws IOException {
+        DataFormatter formatter = new DataFormatter();
+
+        String nombre = formatter.formatCellValue(fila.getCell(0));
+        String ciudad = formatter.formatCellValue(fila.getCell(1));
+        String pais = formatter.formatCellValue(fila.getCell(2));
+        String referencia = formatter.formatCellValue(fila.getCell(3));
+
+        return Refugio.builder()
+                .nombre(nombre)
+                .ciudad(ciudad)
+                .pais(pais)
+                .referenciaUbicacion(referencia)
+                .build();
     }
 
     private Individuo crearIndividuo(Row fila) {

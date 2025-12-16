@@ -17,6 +17,15 @@ public class HogarRepo {
     private final Connection connection;
 
 
+    public void guardarHogar(Hogar hogar) throws SQLException {
+        String query = "SELECT guardarHogar(?, ?, ?)";
+
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        llenarStatement(preparedStatement, hogar);
+        preparedStatement.execute();
+    }
+
+
     public Optional<Hogar> buscarHogarPorId(Integer id) throws SQLException {
         String query = "SELECT * FROM obtener_detalle_hogar(?)";
 
@@ -46,6 +55,12 @@ public class HogarRepo {
         return hogares;
     }
 
+     private void llenarStatement(PreparedStatement preparedStatement, Hogar hogar) throws SQLException {
+        preparedStatement.setInt(1, hogar.getRefugio().getId());
+        preparedStatement.setString(2, hogar.getNombreHogar());
+        preparedStatement.setObject(3, Date.valueOf(hogar.getFechaLlegada()));
+    }
+
     private Hogar crearHogar(ResultSet rs) throws SQLException {
         Refugio refugio = Refugio.builder()
                 .id(rs.getInt("ref_id_refugio"))
@@ -62,5 +77,6 @@ public class HogarRepo {
                 .fechaLlegada(rs.getObject("fecha_llegada_refugio", LocalDate.class))
                 .build();
     }
+
 
 }
