@@ -1,4 +1,3 @@
- plpgsql;
 
 --trigger vacunas
 CREATE OR REPLACE FUNCTION actualizarBitacora_vacunas()
@@ -26,5 +25,6 @@ CREATE TRIGGER trigger_vacunas
 AFTER INSERT OR UPDATE OR DELETE ON Vacunas
 FOR EACH ROW
 EXECUTE FUNCTION actualizarBitacora_vacunas();
+
 
 
