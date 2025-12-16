@@ -397,7 +397,8 @@ BEGIN
         servicios s
     WHERE 
         s.id_hogar = _id_hogar_busqueda
-        AND s.nombre_servicio ILIKE _nombre_busqueda;
+        AND s.nombre_servicio ILIKE _nombre_busqueda
+        AND s.estado_servicio = 'EN_PROGRESO';
 END;
 $$;
 
