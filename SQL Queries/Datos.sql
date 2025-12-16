@@ -1,4 +1,4 @@
---Conjunto de datos para la base de datos
+
 INSERT INTO Refugio (nombre, ciudad, pais, referencia) VALUES
 ('Refugio Esperanza', 'Guayaquil', 'Ecuador', 'Cerca del Malecón 2000'),
 ('Albergue Solidario', 'Bogotá', 'Colombia', 'Carrera 15 #45-20'),
@@ -16,29 +16,22 @@ INSERT INTO Hogar (id_refugio, nombre_hogar, fecha_llegada_refugio) VALUES
 (6, 'Familia Martínez', '2023-08-05');
 
 INSERT INTO Individuo (id_hogar, nombre, apellido, genero, fecha_nacimiento, pais_origen, idioma_principal, nivel_educativo, telefono, estatus_legal, tipo_documento, numero_documento, discapacidad, enfermedad_cronica, embarazada, estado_empleo, representante_hogar) VALUES
--- Hogar 1 (Familia Pérez en Guayaquil)
-(1, 'Carlos', 'Pérez', 'MASCULINO', '1980-05-15', 'Venezuela', 'Español', 'EGB', '+593987654321', 'REFUGIADO', 'PASAPORTE', 'V12345678', NULL, 'Hipertensión', false, 'DESEMPLEADO', true),
-(1, 'María', 'Pérez', 'FEMENINO', '1985-08-22', 'Venezuela', 'Español', 'BACHILLERATO', '+593987654322', 'REFUGIADO', 'PASAPORTE', 'V12345679', NULL, NULL, true, 'DESEMPLEADO', false),
-(1, 'Pedro', 'Pérez', 'MASCULINO', '2015-03-10', 'Venezuela', 'Español', 'SUPERIOR', NULL, 'REFUGIADO', 'CEDULA_IDENTIDAD', 'CN-001', NULL, NULL, false, 'DESEMPLEADO', false),
+(1, 'Carlos', 'Pérez', 'MASCULINO', '1980-05-15', 'Venezuela', 'Español', 'EGB', '+593987654321', 'REFUGIADO', 'PASAPORTE', 'V12345678', 'Ninguna', 'Hipertensión', false, 'DESEMPLEADO', true),
+(1, 'María', 'Pérez', 'FEMENINO', '1985-08-22', 'Venezuela', 'Español', 'BACHILLERATO', '+593987654322', 'REFUGIADO', 'PASAPORTE', 'V12345679', 'Cognitiva', 'Ninguna', true, 'DESEMPLEADO', false),
+(1, 'Pedro', 'Pérez', 'MASCULINO', '2015-03-10', 'Venezuela', 'Español', 'SUPERIOR', '099388839', 'REFUGIADO', 'CEDULA_IDENTIDAD', 'CN-001', 'Ninguna', 'Ninguna', false, 'DESEMPLEADO', false),
+(2, 'Juan', 'Rodríguez', 'MASCULINO', '1978-11-30', 'Venezuela', 'Español', 'SUPERIOR', '+57123456789', 'REFUGIADO', 'PASAPORTE', 'V87654321', 'Visual', 'Ninguna', false, 'DESEMPLEADO', true),
+(2, 'Ana', 'Rodríguez', 'FEMENINO', '1982-02-14', 'Venezuela', 'Español', 'EGB', '+57123456790', 'REFUGIADO', 'PASAPORTE', 'V87654322', 'Ninguna', 'Diabetes', false, 'DESEMPLEADO', false),
 
--- Hogar 2 (Familia Rodríguez en Bogotá)
-(2, 'Juan', 'Rodríguez', 'MASCULINO', '1978-11-30', 'Venezuela', 'Español', 'SUPERIOR', '+57123456789', 'REFUGIADO', 'PASAPORTE', 'V87654321', 'Visual', NULL, false, 'DESEMPLEADO', true),
-(2, 'Ana', 'Rodríguez', 'FEMENINO', '1982-02-14', 'Venezuela', 'Español', 'EGB', '+57123456790', 'REFUGIADO', 'PASAPORTE', 'V87654322', NULL, 'Diabetes', false, 'DESEMPLEADO', false),
+(3, 'Luis', 'Gómez', 'MASCULINO', '1990-07-08', 'Colombia', 'Español', 'EGB', '+511987654321', 'REFUGIADO', 'CEDULA_IDENTIDAD', 'COL-123456', 'Ninguna', 'Ninguna', false, 'DEPENDENCIA', true),
+(3, 'Carmen', 'Gómez', 'FEMENINO', '1992-12-25', 'Colombia', 'Español', 'SUPERIOR', '+511987654322', 'REFUGIADO', 'CEDULA_IDENTIDAD', 'COL-123457', 'Ninguna', 'Ninguna', false, 'DEPENDENCIA', false),
 
--- Hogar 3 (Familia Gómez en Lima)
-(3, 'Luis', 'Gómez', 'MASCULINO', '1990-07-08', 'Colombia', 'Español', 'EGB', '+511987654321', 'REFUGIADO', 'CEDULA_IDENTIDAD', 'COL-123456', NULL, NULL, false, 'DEPENDENCIA', true),
-(3, 'Carmen', 'Gómez', 'FEMENINO', '1992-12-25', 'Colombia', 'Español', 'SUPERIOR', '+511987654322', 'REFUGIADO', 'CEDULA_IDENTIDAD', 'COL-123457', NULL, NULL, false, 'DEPENDENCIA', false),
+(4, 'Diego', 'Fernández', 'MASCULINO', '1988-04-18', 'Venezuela', 'Español', 'BACHILLERATO', '+541112345678', 'REFUGIADO', 'PASAPORTE', 'V11223344', 'Ninguna', 'Ninguna', false, 'DESEMPLEADO', true),
+(4, 'Laura', 'Fernández', 'FEMENINO', '1991-09-05', 'Venezuela', 'Español', 'SUPERIOR', '+541112345679', 'REFUGIADO', 'PASAPORTE', 'V11223345', 'Ninguna', 'Asma', false, 'DESEMPLEADO', false),
 
--- Hogar 4 (Familia Fernández en Buenos Aires)
-(4, 'Diego', 'Fernández', 'MASCULINO', '1988-04-18', 'Venezuela', 'Español', 'BACHILLERATO', '+541112345678', 'REFUGIADO', 'PASAPORTE', 'V11223344', NULL, NULL, false, 'DESEMPLEADO', true),
-(4, 'Laura', 'Fernández', 'FEMENINO', '1991-09-05', 'Venezuela', 'Español', 'SUPERIOR', '+541112345679', 'REFUGIADO', 'PASAPORTE', 'V11223345', NULL, 'Asma', false, 'DESEMPLEADO', false),
+(5, 'Roberto', 'López', 'MASCULINO', '1975-01-20', 'Colombia', 'Español', 'SUPERIOR', '+593912345678', 'REFUGIADO', 'PASAPORTE', 'COL-987654', 'Motriz', 'Ninguna', false, 'DESEMPLEADO', true),
+(5, 'Sofía', 'López', 'FEMENINO', '2018-06-30', 'Colombia', 'Español', 'SUPERIOR', '0000000000000', 'REFUGIADO', 'LICENCIA_CONDUCIR', 'CN-002', 'Ninguna', 'Ninguna', false, 'DEPENDENCIA', false),
 
--- Hogar 5 (Familia López en Quito)
-(5, 'Roberto', 'López', 'MASCULINO', '1975-01-20', 'Colombia', 'Español', 'SUPERIOR', '+593912345678', 'REFUGIADO', 'PASAPORTE', 'COL-987654', 'Motriz', NULL, false, 'DESEMPLEADO', true),
-(5, 'Sofía', 'López', 'FEMENINO', '2018-06-30', 'Colombia', 'Español', 'SUPERIOR', NULL, 'REFUGIADO', 'LICENCIA_CONDUCIR', 'CN-002', NULL, NULL, false, 'DEPENDENCIA', false),
-
--- Hogar 6 (Familia Martínez en Cali)
-(6, 'Miguel', 'Martínez', 'MASCULINO', '1983-03-12', 'Venezuela', 'Español', 'EGB', '+57212345678', 'REFUGIADO', 'LICENCIA_CONDUCIR', 'V55667788', NULL, NULL, false, 'DEPENDENCIA', true);
+(6, 'Miguel', 'Martínez', 'MASCULINO', '1983-03-12', 'Venezuela', 'Español', 'EGB', '+57212345678', 'REFUGIADO', 'LICENCIA_CONDUCIR', 'V55667788', 'Ninguna', 'Ninguna', false, 'DEPENDENCIA', true);
 
 INSERT INTO Alojamiento (id_refugio, id_hogar, fecha_ingreso, fecha_salida) VALUES
 (1, 1, '2023-03-15', NULL),
