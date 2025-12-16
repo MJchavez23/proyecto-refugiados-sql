@@ -5,7 +5,7 @@ $$
 DECLARE 
 BEGIN
 INSERT INTO Bitacora (
-usuario
+usuario,
 fecha,
 accion,
 tabla
@@ -23,4 +23,5 @@ CREATE TRIGGER trigger_alojamiento
 AFTER INSERT OR UPDATE OR DELETE ON Alojamiento
 FOR EACH ROW
 EXECUTE FUNCTION actualizarBitacora_alojamiento();
+
 
