@@ -19,8 +19,8 @@ FOREIGN KEY(id_refugio) REFERENCES Refugio(id_refugio)
 CREATE TABLE Individuo (
 id_individuo SERIAL PRIMARY KEY,
 id_hogar INTEGER,
-nombre VARCHAR(10) NOT NULL,
-apellido VARCHAR(10) NOT NULL,
+nombre VARCHAR(50) NOT NULL,
+apellido VARCHAR(50) NOT NULL,
 genero VARCHAR(10) NOT NULL,
 fecha_nacimiento DATE NOT NULL,
 pais_origen VARCHAR(20) NOT NULL,
@@ -98,3 +98,4 @@ fecha TIMESTAMP,
 accion VARCHAR(50),
 tabla VARCHAR(50)	
 );
+
