@@ -398,5 +398,34 @@ BEGIN
 END;
 $$;
 
+CREATE OR REPLACE FUNCTION buscarPorNumeroDocumento(_numero_documento VARCHAR)
+RETURNS TABLE (
+    id_servicio INTEGER,
+    nombre_servicio VARCHAR,
+    id_hogar INTEGER,
+    descripcion_servicio VARCHAR,
+    estado_servicio VARCHAR
+)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    RETURN QUERY 
+    SELECT 
+        s.id_servicio,
+        s.nombre_servicio,
+        s.id_hogar,
+        s.descripcion_servicio,
+        s.estado_servicio
+    FROM 
+        servicios s
+    INNER JOIN 
+        hogar h ON s.id_hogar = h.id_hogar
+    INNER JOIN 
+        individuo i ON h.id_hogar = i.id_hogar
+    WHERE 
+        i.numero_documento = _numero_documento
+        AND s.estado_servicio ILIKE 'EN_PROGESO';
+END;
+$$;
 
 
