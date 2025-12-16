@@ -432,4 +432,49 @@ BEGIN
 END;
 $$;
 
+CREATE OR REPLACE FUNCTION guardarHogar(
+    _id_refugio INTEGER,
+    _nombre_hogar VARCHAR,
+    _fecha_llegada_refugio DATE
+)
+RETURNS VOID
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    INSERT INTO hogar (
+        id_refugio,
+        nombre_hogar,
+        fecha_llegada_refugio
+    )
+    VALUES (
+        _id_refugio,
+        _nombre_hogar,
+        _fecha_llegada_refugio
+    );
+END;
+$$;
 
+CREATE OR REPLACE FUNCTION guardarRefugio(
+    _nombre VARCHAR,
+    _ciudad VARCHAR,
+    _pais VARCHAR,
+    _referencia VARCHAR
+)
+RETURNS VOID
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    INSERT INTO refugio (
+        nombre,
+        ciudad,
+        pais,
+        referencia
+    )
+    VALUES (
+        _nombre,
+        _ciudad,
+        _pais,
+        _referencia
+    );
+END;
+$$;
